@@ -33,28 +33,43 @@ body {
 .col-12 {width: 100%;}
 
 .container {
-    background-color:rgb(7, 8, 90);
+    background-color:bisque;
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow: hidden;
+    position: relative;
     width: 100%;
-}
-
-.top {
-    background-color: #df2323;
-    height: 166px;
-    text-align: right;
 }
 
 .left {
     background-color: #02A7FF;
+    padding: 0;
     height: 100%;
 }
 
-.right {
-    background-color: #E5E5E5;
+.content {
+    background-color:blueviolet;
     height: 100%;
-    float: left;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.top {
+    background-color: #E5E5E5;
+    height: 100px;
+    margin: 0;
+    clear: both;
+    text-align: right;
+    vertical-align: middle;
+    padding-right: 5%;
+}
+
+.bottom {
+    background-color: aqua;
+    height: 100%;
+    clear: both;
 }
 
 .logo {
@@ -64,20 +79,12 @@ body {
     margin: 0;
 }
 
-img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.bottom {
-    clear: both;
-    background-color: white;
-    height: 100%;
-    text-align: justify;
+.navigation {
+    font-family: 'Roboto', cursive;
+    font-size: 35px;
 }
 
 button {
-    padding-left: 10px;
     font-family: 'Roboto', cursive;
     font-size: 35px;
     background-color: #02A7FF;
@@ -88,8 +95,8 @@ button {
     word-wrap: break-word;
 }
 button:hover {
-    padding-left: 10px;
     font-family: 'Roboto', cursive;
+    font-size: 35px;
     background-color: #026499;
     border: none;
     width: 100%;
@@ -100,6 +107,8 @@ button:hover {
     width: auto;
     padding: 10px;
     border-radius: 10px;
+    margin-top: 1.5%;
+    margin-right: 5%;
 }
 .logowanie:hover {
     width: auto;
