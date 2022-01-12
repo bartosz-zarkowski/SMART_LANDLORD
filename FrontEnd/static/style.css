@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+.nav-link {
+    color: white;
+}
+
 .row::after {
     content: "";
     clear: both;
