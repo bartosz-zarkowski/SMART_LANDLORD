@@ -1,0 +1,69 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.container-fluid {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.topbar {
+    width: 100%;
+    height: 120px;
+    margin: 0;
+    background-color: #E5E5E5;
+}
+.logo {
+    height:100%;
+}
+.mainLogo {
+    height: 100%;
+}
+.btn{
+    background-color: #02A7FF;
+    border: none;
+    position:relative; 
+    width:100px; 
+    top:35%;
+    margin-right: 10px;
+}
+btn:hover {
+    background-color: #015480;
+}
+.buttons {
+    float: right;
+    text-align: right;
+    background-color: #E5E5E5;
+}
+@media screen and (max-width: 600px) {
+    .logo {
+        text-align: center;
+    }
+    .buttons {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+}
+.content {
+    height: 100px;
+    margin: auto;
+    text-align: justify;
+    padding: 10px;
+    padding-top: 30px;
+}
+.screen {
+    width: 40%;
+    border-color: #E5E5E5;
+    border-radius: 1px;
+    border-style: solid;
+    margin-left: 5%;
+}
+hr {
+    border-top: 3px solid black;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    background-color: black;
+}

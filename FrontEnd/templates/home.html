@@ -1,37 +1,49 @@
 <!DOCTYPE html>
-<html lang="pl">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="SMART LANDLORD" />
-    <meta name="keywords" content="" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title> SMART LANDLORD </title>
-    <meta name="author" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-</head>
+    <meta charset="UTF-8">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+    <link rel="stylesheet" href="../static/style_home.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,500&display=swap" rel="stylesheet"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
+    <title>Smart Landlord - strona główna</title>
+</head>
 <body>
-    <div class="col-12 container">
-        <div class="top">
-            <div class="col-3 left">
-                <div class="logo"><img style="width: auto; height: auto;" src="../static/IMAGES/LOGO.png">
-                </div>
-            </div>
-            <div class="col-9 right">
-                <button class="logowanie">Zaloguj</button>
-                <button class="rejestracja">Zarejestruj</button>
-            </div>
+<div class="container-fluid">
+    <div class="row topbar">
+        <div class="col-sm-6 logo">
+            <img src="../static/IMAGES/LOGO.png" class="img-fluid mainLogo" alt="logo"/>
         </div>
-        <div class="col-12 bottom">
-            <div class="col-2 c1"></div>
-            <div class="col-8 c2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu urna vitae diam scelerisque iaculis vitae at lacus. Fusce dignissim ac nibh in consectetur. Sed malesuada interdum laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus sodales tellus quis purus elementum, at aliquam ex tempor. Aliquam ultricies ante nec massa fermentum suscipit at ut erat. Maecenas at varius eros, sed interdum orci.
-            </div>
-            <div class="col-2 c1"></div>
+        <div class="col-sm-6 buttons">
+            <a href="login.html"><button type="button" class="btn btn-primary button">Zaloguj</button></a>
+            <a href="register.html"><button type="button" class="btn btn-primary button">Zarejestruj</button></a>
         </div>
     </div>
-</body>
+    <div class="col-sm-8 content">
+        <h1>
+            O serwisie
+        </h1>
+        <hr>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet ullamcorper dui. Curabitur dapibus, dolor non dapibus posuere, massa velit dictum purus, et molestie nibh ante luctus enim. Morbi sed mi et urna volutpat ornare quis quis eros. Ut eget turpis imperdiet, iaculis erat eu, auctor ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam quis iaculis nulla. Sed feugiat, purus rutrum tincidunt bibendum, dui augue vestibulum justo, at porttitor dolor libero in lectus. 
+        </p>
+        <img src="../static/IMAGES/screen1.png" class="img-fluid screen" alt="app"/>
+        <img src="../static/IMAGES/screen2.png" class="img-fluid screen" alt="app"/>
+    </div>
+</div>
+<footer>
+    st00pki.
+</footer>
 
+<!--BOOTSTRAP Javascript-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
 </html>
