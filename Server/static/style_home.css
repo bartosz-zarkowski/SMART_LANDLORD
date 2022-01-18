@@ -3,8 +3,8 @@ body {
 }
 .container-fluid {
     width: 100%;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 .topbar {
     width: 100%;
@@ -26,7 +26,7 @@ body {
     top:35%;
     margin-right: 10px;
 }
-btn:hover {
+.btn:hover {
     background-color: #015480;
 }
 .buttons {
@@ -47,8 +47,7 @@ btn:hover {
     height: 100px;
     margin: auto;
     text-align: justify;
-    padding: 10px;
-    padding-top: 30px;
+    padding: 30px 10px 10px;
 }
 .screen {
     width: 40%;

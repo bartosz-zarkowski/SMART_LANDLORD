@@ -98,11 +98,12 @@ def login():
         cursor, db = get_db()
         error = None
 
-        cursor.execute("SELECT userId, password FROM users WHERE email = %s", (email,))
+        cursor.execute("SELECT userId, password, role FROM users WHERE email = %s", (email,))
         user = cursor.fetchall()
 
         userId = user[0][0]
         userPassword = user[0][1]
+        role = user[0][2]
 
         if email is None:
             error = "Incorrect email."
@@ -113,6 +114,7 @@ def login():
             # store the user id in a new session and return to the index
             session.clear()
             session["user_id"] = userId
+            session["user_type"] = role
             return redirect(url_for("app.strona_glowna"))
 
         flash(error)
