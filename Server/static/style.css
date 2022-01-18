@@ -85,6 +85,16 @@ body {
     color: #8C8C8C;
 }
 
+.logout:hover {
+    color: black;
+}
+
+.avatar {
+    padding: 10px;
+    font-size: 20px;
+    background-color: darkgray;
+}
+
 img {
     width:100%;
 }

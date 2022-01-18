@@ -18,6 +18,14 @@ def getUserRole():
         return "undefined"
 
 
+def getUserName():
+    firstName = g.user[2]
+    fullName = g.user[3]
+    name = firstName + " " + fullName
+    initials = firstName[0] + fullName[0]
+    return name, initials
+
+
 @bp.route("/")
 def index():
     return render_template("home.html")
@@ -26,34 +34,76 @@ def index():
 @bp.route("/strona_glowna")
 @login_required
 def strona_glowna():
-    return render_template("app/strona_glowna.html", userInfo=getUserRole())
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Strona Główna"
+    )
 
 
 @bp.route("/powiadomienia")
 @login_required
 def powiadomienia():
-    return render_template("app/strona_glowna.html", userInfo=getUserRole())
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Powiadomienia"
+    )
 
 
 @bp.route("/kontakty")
 @login_required
 def kontakty():
-    return render_template("app/strona_glowna.html", userInfo=getUserRole())
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Kontakty"
+    )
 
 
 @bp.route("/podsumowanie")
 @login_required
 def podsumowanie():
-    return render_template("app/strona_glowna.html", userInfo=getUserRole())
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Podsumowanie"
+    )
 
 
 @bp.route("/twoje_lokale")
 @login_required
 def twoje_lokale():
-    return render_template("app/strona_glowna.html", userInfo=getUserRole())
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Twoje lokale"
+    )
 
 
 @bp.route("/ustawienia")
 @login_required
 def ustawienia():
-    return render_template("app/strona_glowna.html", userInfo=getUserRole())
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Ustawienia"
+    )
