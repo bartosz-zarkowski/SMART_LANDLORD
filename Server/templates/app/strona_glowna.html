@@ -1,5 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
-    <h4>Strona główna - {{ userInfo }}</h4>
+<div class="row mini_cards">
+    <div class="col col-sm-12 card mini_card">
+        <div class="card-body mini_card_body">
+            <h1 class="card-title mini_card-title">37</h1>
+            <p class="card-text mini_card-text">mieszkań</p>
+        </div>
+    </div>
+
+    <div class="col col-sm-12 card mini_card">
+        <div class="card-body mini_card_body">
+            <h1 class="card-title mini_card-title">0</h1>
+            <p class="card-text mini_card-text">błędów</p>
+        </div>
+    </div>
+
+    <div class="col col-sm-12 card mini_card">
+        <div class="card-body mini_card_body">
+            <h1 class="card-title mini_card-title">50</h1>
+            <p class="card-text mini_card-text">mieszkańców</p>
+        </div>
+    </div>
+</div>
+
+<div class="row big_card_row">
+    <div class="col big_card_col">
+        <div class="card big_card">
+            <h2 class="card-header big_card_header"> <i class="fs-16 bi-cash card-title-icon"></i> Zyski</h2>
+            <div class="card-body big_card_body">
+                <p class="card-text big_card-text"><img src="{{ url_for('static', filename='IMAGES/chart.png') }}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

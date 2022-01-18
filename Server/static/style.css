@@ -6,7 +6,7 @@ body {
     color: black;
 }
 
-.nav-item:visited{
+.nav-item:visited {
     color: black;
 }
 
@@ -14,7 +14,8 @@ body {
     color: white;
 }
 
-.nav-item, .nav-pills {
+.nav-item,
+.nav-pills {
     width: 100%;
 }
 
@@ -52,10 +53,12 @@ body {
 }
 
 .page-content {
-    padding: 15px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.content{
+.content {
     padding: 0;
 }
 
@@ -96,10 +99,82 @@ body {
 }
 
 img {
-    width:100%;
+    width: 100%;
 }
 
 hr {
     width: 100%;
 }
 
+.col {
+    padding: 0;
+}
+
+.card {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-title-icon {
+    font-size: 40px;
+    padding: -10px;
+    height: 10px;
+}
+
+.mini_cards {
+    justify-content: space-between;
+}
+
+.mini_card {
+    max-width: 300px;
+    width: 300px;
+    height: 300px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+    background-color: #E5E5E5;
+    border: none;
+    border-radius: 70px;
+}
+
+.mini_card_body {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.mini_card-title {
+    font-size: 70px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.mini_card-text {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.big_card_row {
+    margin-top: 40px;
+}
+
+.big_card_col {}
+
+.big_card {
+    border: none;
+    box-shadow: 10px;
+    background-color: #E5E5E5;
+    border: none;
+    border-radius: 70px;
+    padding: 20px;
+}
+
+.big_card_header {
+    background: none;
+    border-bottom: 1px solid #8C8C8C;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.big_card_body {}
