@@ -1,24 +1,18 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item expandable_card">
-            <h2 class="accordion-header expandable_card_header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                    Mieszkanie - aleja piastów
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show expandable_card_collapse" aria-labelledby="headingOne"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
-                    plugin adds the appropriate classes that we use to style each element. These classes control the
-                    overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of
-                    this with custom CSS or overriding our default variables. It's also worth noting that just about any
-                    HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
+{% extends 'base.html' %} {% block content %}
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="headingOne">
+            <button class="accordion-button expandable_card_button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - aleja piastów</h2>
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show expandable_card_collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <i class="fs-16 bi-people-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
+                <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
+                <i class="fs-16 bi-plug-fill card-title-icon"></i> Kwota najmu: 1100zł, termin płatności: 01.02.2022r.
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
