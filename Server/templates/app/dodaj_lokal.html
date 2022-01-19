@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+    {% if userInfo=='właściciel' %}
+
+
+
+    {% elif userInfo=='najemca' %}
+
+        <h4>Nie możesz dodawać lokali!</h4>
+
+    {% endif %}
+
+
+
+{% endblock %}

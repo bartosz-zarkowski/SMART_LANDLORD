@@ -96,6 +96,19 @@ def twoje_lokale():
     )
 
 
+@bp.route("/dodaj_lokal")
+@login_required
+def ustawienia():
+    name, initials = getUserName()
+    return render_template(
+        "app/strona_glowna.html",
+        userInfo=getUserRole(),
+        name=name,
+        initials=initials,
+        title="Dodaj lokal"
+    )
+
+
 @bp.route("/ustawienia")
 @login_required
 def ustawienia():

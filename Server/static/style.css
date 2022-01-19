@@ -23,8 +23,6 @@ hr { width: 100%; }
 
 .nav-item, .nav-pills { width: 100%; }
 
-.user_info { margin-right: 20px; }
-
 .user { text-align: right; }
 
 .col { padding: 0; }
@@ -98,7 +96,14 @@ hr { width: 100%; }
 }
 
 .navbar-title {
-    
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.user_info {
+    margin-right: 20px;
+    margin-top: 10px;
 }
 
 /* LOGOUT */
@@ -127,14 +132,11 @@ hr { width: 100%; }
     align-items: center;
     justify-content: space-between;
     z-index: 1;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
 }
 .rounded-circle {
     width: 50px;
     height: 50px;
-}
-.navbar-title {
-    margin-left: 20px;
-    font-size: 25px;
 }
 .topbar-right-container {
     display: flex;
@@ -235,6 +237,12 @@ hr { width: 100%; }
         position: inherit;
         width: 100%;
     }
+    .navbar-title{
+        margin-left: 70px;
+    }
+    .username {
+        display: none;
+    }
 }
 
 .expandable_card {
@@ -243,17 +251,30 @@ hr { width: 100%; }
 
 .accordion {}
 
-.accordion-button {
+.expandable_card_button {
     border: none;
     background-color: #E5E5E5;
-    border-radius: 70px;
-    padding: 15px 20px 20px;
-
+    padding: 30px 40px 40px;
+    font-size: 50px;
+    font-weight: bold;
+    width: 100%;
 }
 
 .accordion-button:not(.collapsed) {
     border: none;
     background-color: #E5E5E5;
-    border-radius: 70px;
+    color: #000;
+    padding: 15px 20px 20px;
+    font-size: 50px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.accordion_title_icon {
+    height: 55px;
+}
+
+.expandable_card_collapse {
+    background-color: #E5E5E5;
     padding: 15px 20px 20px;
 }
