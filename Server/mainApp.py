@@ -1,15 +1,17 @@
 from flask import Blueprint
 from flask import render_template
 from flask import g
+from flask import request
+from flask import flash
 
-from auth import login_required
 from db import get_db
+from auth import login_required
 
 bp = Blueprint("app", __name__)
 
 
 def getUserRole():
-    userRole = g.user[6]
+    userRole = g.user[5]
     if userRole == "tenant":
         return "najemca"
     elif userRole == "owner":
@@ -19,8 +21,8 @@ def getUserRole():
 
 
 def getUserName():
-    firstName = g.user[2]
-    fullName = g.user[3]
+    firstName = g.user[1]
+    fullName = g.user[2]
     name = firstName + " " + fullName
     initials = firstName[0] + fullName[0]
     return name, initials
@@ -87,26 +89,84 @@ def podsumowanie():
 @login_required
 def twoje_lokale():
     name, initials = getUserName()
-    return render_template(
-        "app/twoje_lokale.html",
-        userInfo=getUserRole(),
-        name=name,
-        initials=initials,
-        title="Twoje lokale"
-    )
+    userPermission = getUserRole()
+    if userPermission != "właściciel":
+        return render_template(
+            "app/403.html",
+            userInfo=userPermission,
+            name=name,
+            initials=initials,
+            title="403 - Nie masz uprawnień"
+        )
+    else:
+        cursor, db = get_db()
+
+        cursor.execute("SELECT city, street, localNumber, localCode FROM locals WHERE ownerId = %s", (g.user[0],))
+        currentOwnerLocals = cursor.fetchall()
+
+        return render_template(
+            "app/twoje_lokale.html",
+            userInfo=userPermission,
+            name=name,
+            initials=initials,
+            title="Twoje lokale",
+            locals=currentOwnerLocals
+        )
 
 
-@bp.route("/dodaj_lokal")
+@bp.route("/dodaj_lokal", methods=("GET", "POST"))
 @login_required
 def dodaj_lokal():
+    """Log in a registered user by adding the user id to the session."""
+    if request.method == "POST":
+        city = request.form["city"]
+        street = request.form["street"]
+        localNumber = request.form["localNumber"]
+        localCode = request.form["localCode"]
+        cursor, db = get_db()
+        error = None
+
+        if not city:
+            error = "City is required."
+        elif not street:
+            error = "Street is required."
+        elif not localNumber:
+            error = "Local number is required."
+        elif not localCode:
+            error = "Local Code is required."
+
+        if error is None:
+            try:
+                cursor.execute(
+                    "INSERT INTO locals (ownerId, city, street, localNumber, localCode) VALUES (%s, %s, %s, %s, %s)",
+                    (g.user[0], city, street, localNumber, localCode),
+                )
+                db.commit()
+            except db.IntegrityError:
+                flash("Lokal z takim kodem już istnieje, spróbuj ponownie", 'danger')
+            else:
+                flash("Pomyślnie dodano nowy lokal!", 'success')
+
+        else: flash(error)
+
     name, initials = getUserName()
-    return render_template(
-        "app/dodaj_lokal.html",
-        userInfo=getUserRole(),
-        name=name,
-        initials=initials,
-        title="Dodaj lokal"
-    )
+    userPermission = getUserRole()
+    if userPermission != "właściciel":
+        return render_template(
+            "app/403.html",
+            userInfo=userPermission,
+            name=name,
+            initials=initials,
+            title="403 - Nie masz uprawnień"
+        )
+    else:
+        return render_template(
+            "app/dodaj_lokal.html",
+            userInfo=getUserRole(),
+            name=name,
+            initials=initials,
+            title="Dodaj lokal"
+        )
 
 
 @bp.route("/ustawienia")

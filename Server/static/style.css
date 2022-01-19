@@ -29,6 +29,12 @@ hr { width: 100%; }
 
 .card { box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5); }
 
+.alert {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: -10px;
+}
+
 /* ----------------------------------------------- */
 
 .item-single {
@@ -104,6 +110,29 @@ hr { width: 100%; }
 .user_info {
     margin-right: 20px;
     margin-top: 10px;
+}
+
+.submit-button {
+    background-color: #02A7FF;
+    color: white;
+    width: 200px;
+}
+
+.add_local_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.add_local_form_item {
+    width: 100%;
+}
+
+.add_local_form_input {
+    text-align: center;
 }
 
 /* LOGOUT */
@@ -245,36 +274,44 @@ hr { width: 100%; }
     }
 }
 
+
+/* EXPANDABLE CARDS */
 .expandable_card {
-
+    border: none;
+    margin-bottom: 30px;
 }
-
-.accordion {}
-
 .expandable_card_button {
-    border: none;
     background-color: #E5E5E5;
-    padding: 30px 40px 40px;
-    font-size: 50px;
+    padding: 20px 40px 20px;
+    font-size: 20px;
     font-weight: bold;
-    width: 100%;
+    border-radius: 40px !important;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
 }
-
+.expandable_card_button:focus {
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
 .accordion-button:not(.collapsed) {
-    border: none;
+    border-radius: 40px;
     background-color: #E5E5E5;
     color: #000;
-    padding: 15px 20px 20px;
-    font-size: 50px;
-    font-weight: bold;
-    width: 100%;
 }
-
+.collapsing {
+    transition-delay: 0.1s;
+}
 .accordion_title_icon {
     height: 55px;
 }
-
 .expandable_card_collapse {
     background-color: #E5E5E5;
-    padding: 15px 20px 20px;
+    /*padding: 15px 20px 20px;*/
+    border-radius: 0 0 50px 50px !important;
+    /*margin-top: -40px;*/
 }
+.expandable_card_body {
+    padding: 0 40px 20px;
+}
+.bottom-border-radius-flat {
+    border-radius: 40px 40px 0 0 !important;
+}
+/* ---------------- */

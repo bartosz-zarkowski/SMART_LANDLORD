@@ -35,22 +35,30 @@
                     </li>
 
                     {% if userInfo=='właściciel' %}
+
                     <li class="nav-item{% if title=='Twoje lokale' %} item-single-current {% else %} item-single {% endif %}">
                         <a href="{{ url_for('app.twoje_lokale') }}" class="nav-link {% if title=='Twoje lokale' %} nav-link-current {% endif %} align-middle px-0">
                             <i class="fs-4 bi-list-ul"></i> <span class="ms-1">Twoje lokale</span>
                         </a>
                     </li>
+
+                    <li class="nav-item{% if title=='Dodaj lokal' %} item-single-current {% else %} item-single {% endif %}">
+                        <a href="{{ url_for('app.dodaj_lokal') }}" class="nav-link {% if title=='Dodaj lokal' %} nav-link-current {% endif %} align-middle px-0">
+                            <i class="fs-4 bi-plus-square"></i> <span class="ms-1">Dodaj lokal</span>
+                        </a>
+                    </li>
+
                     {% endif %}
 
                     <li class="nav-item{% if title=='Powiadomienia' %} item-single-current {% else %} item-single {% endif %}">
                         <a href="{{ url_for('app.powiadomienia') }}" class="nav-link {% if title=='Powiadomienia' %} nav-link-current {% endif %} align-middle px-0">
-                            <i class="fs-4 bi-bell-fill"></i> <span class="ms-1">Powiadomienia</span>
+                            <i class="fs-4 bi-bell"></i> <span class="ms-1">Powiadomienia</span>
                         </a>
                     </li>
 
                     <li class="nav-item{% if title=='Kontakty' %} item-single-current {% else %} item-single {% endif %}">
                         <a href="{{ url_for('app.kontakty') }}" class="nav-link {% if title=='Kontakty' %} nav-link-current {% endif %} align-middle px-0">
-                            <i class="fs-4 bi-person-square"></i> <span class="ms-1">Kontakty</span>
+                            <i class="fs-4 bi-people"></i> <span class="ms-1">Kontakty</span>
                         </a>
                     </li>
 
@@ -92,9 +100,14 @@
 
             {# CONTENT #}
             <section class="page-content">
-              {% for message in get_flashed_messages() %}
-                <div class="flash">{{ message }}</div>
-              {% endfor %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}"> {{ message|capitalize }} </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
               {% block content %}{% endblock %}
             </section>
         </div>
