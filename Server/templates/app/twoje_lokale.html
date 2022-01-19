@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% if userInfo=='właściciel' %}
 <div class="accordion" id="accordionExample">
     <div class="accordion-item expandable_card">
         <h2 class="accordion-header expandable_card_header" id="headingOne">
@@ -15,4 +15,6 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% elif userInfo=='najemca' %}
+<h3>Nie jesteś najemcą, narła</h3>
+{% endif %} {% endblock %}
