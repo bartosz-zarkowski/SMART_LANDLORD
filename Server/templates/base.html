@@ -19,41 +19,43 @@
         <div class="col-auto px-0 left-navbar">
 
             {# LOGO #}
-            <image src="{{ url_for('static', filename='IMAGES/LOGO.png') }}"></image>
+            <image id="logo" src="{{ url_for('static', filename='IMAGES/LOGO.png') }}"></image>
+
+            <i class="bi-x" onclick="closeSidebar()" id="closeSidebar"></i>
 
             {# SIDEBAR CONTENT #}
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white" id="sidebar-content">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 
 
                     <li class="nav-item{% if title=='Strona Główna' %} item-single-current {% else %} item-single {% endif %}">
-                        <a href="{{ url_for('app.strona_glowna') }}" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Strona główna</span>
+                        <a href="{{ url_for('app.strona_glowna') }}" class="nav-link {% if title=='Strona Główna' %} nav-link-current {% endif %} align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1">Strona główna</span>
                         </a>
                     </li>
 
                     <li class="nav-item{% if title=='Powiadomienia' %} item-single-current {% else %} item-single {% endif %}">
-                        <a href="{{ url_for('app.powiadomienia') }}" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-bell-fill"></i> <span class="ms-1 d-none d-sm-inline">Powiadomienia</span>
+                        <a href="{{ url_for('app.powiadomienia') }}" class="nav-link {% if title=='Powiadomienia' %} nav-link-current {% endif %} align-middle px-0">
+                            <i class="fs-4 bi-bell-fill"></i> <span class="ms-1">Powiadomienia</span>
                         </a>
                     </li>
 
                     <li class="nav-item{% if title=='Kontakty' %} item-single-current {% else %} item-single {% endif %}">
-                        <a href="{{ url_for('app.kontakty') }}" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-person-square"></i> <span class="ms-1 d-none d-sm-inline">Kontakty</span>
+                        <a href="{{ url_for('app.kontakty') }}" class="nav-link {% if title=='Kontakty' %} nav-link-current {% endif %} align-middle px-0">
+                            <i class="fs-4 bi-person-square"></i> <span class="ms-1">Kontakty</span>
                         </a>
                     </li>
 
                    <li class="nav-item{% if title=='Podsumowanie' %} item-single-current {% else %} item-single {% endif %}">
-                        <a href="{{ url_for('app.podsumowanie') }}" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-graph-up"></i> <span class="ms-1 d-none d-sm-inline">Podsumowanie</span>
+                        <a href="{{ url_for('app.podsumowanie') }}" class="nav-link {% if title=='Podsumowanie' %} nav-link-current {% endif %} align-middle px-0">
+                            <i class="fs-4 bi-graph-up"></i> <span class="ms-1">Podsumowanie</span>
                         </a>
                     </li>
                 </ul>
 
                 <li class="nav-item settings{% if title=='Ustawienia' %} item-single-current {% else %} item-single {% endif %}">
-                    <a href="{{ url_for('app.ustawienia') }}" class="nav-link align-middle px-0">
-                        <i class="fs-4 bi-gear-fill"></i> <span class="ms-1 d-none d-sm-inline">Ustawienia</span>
+                    <a href="{{ url_for('app.ustawienia') }}" class="nav-link {% if title=='Ustawienia' %} nav-link-current {% endif %} align-middle px-0">
+                        <i class="fs-4 bi-gear-fill"></i> <span class="ms-1">Ustawienia</span>
                     </a>
                 </li>
             </div>
@@ -64,13 +66,15 @@
         <div class="col content">
             {# TOPBAR #}
             <nav class="navbar topbar">
+                <i class="bi-list openbtn" onclick="openSidebar()"></i>
+
                 <div class="user_info">
                     <span class="avatar avatar-128 text-white rounded-circle">{{ initials }}</span>
-                    <span class="d-none d-sm-inline mx-1">{{ name }}</span>
+                    <span class="mx-1">{{ name }}</span>
                 </div>
 
                 <a href="{{ url_for('auth.logout') }}" class="nav-link align-middle px-0 logout">
-                    <i class="fs-4 bi-door-closed-fill"></i> <span class="ms-1 d-none d-sm-inline"></span>
+                    <i class="bi-door-closed-fill"></i>
                 </a>
             </nav>
 
@@ -89,3 +93,22 @@
 
 <!--BOOTSTRAP Javascript-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script>
+    let sidebar = document.getElementsByClassName("left-navbar")[0];
+    let topbar = document.getElementsByClassName("topbar")[0];
+    let content = document.getElementsByClassName("content")[0];
+    let closeSidebarBtn = document.getElementById("closeSidebar");
+    let menu = document.getElementsByClassName("nav-item");
+    let currentLi = document.getElementsByClassName("item-single-current")[0];
+
+    function openSidebar() {
+        sidebar.style.display = "flex";
+        closeSidebarBtn.style.display = "block";
+    }
+    function closeSidebar() {
+        sidebar.style = "";
+        closeSidebarBtn.style.display = "none";
+    }
+
+</script>
