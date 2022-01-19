@@ -88,7 +88,7 @@ def podsumowanie():
 def twoje_lokale():
     name, initials = getUserName()
     return render_template(
-        "app/strona_glowna.html",
+        "app/twoje_lokale.html",
         userInfo=getUserRole(),
         name=name,
         initials=initials,

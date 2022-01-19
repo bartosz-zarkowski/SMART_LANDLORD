@@ -97,6 +97,10 @@ hr { width: 100%; }
     margin-right: 10px;
 }
 
+.navbar-title {
+    
+}
+
 /* LOGOUT */
 .logout {
     color: #8C8C8C;
@@ -121,12 +125,20 @@ hr { width: 100%; }
     padding: 10px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     z-index: 1;
 }
 .rounded-circle {
     width: 50px;
     height: 50px;
+}
+.navbar-title {
+    margin-left: 20px;
+    font-size: 25px;
+}
+.topbar-right-container {
+    display: flex;
+    flex-direction: row;
 }
 /* ------ */
 
@@ -177,11 +189,14 @@ hr { width: 100%; }
     background: none;
     border-bottom: 1px solid #8C8C8C;
     font-weight: bold;
+    font-size: 25px;
     padding-bottom: 10px;
     padding-top: 0;
     padding-left: 30px;
 }
-.big_card_body {}
+.big_card_body {
+    padding-left: 30px;
+}
 /* ------ */
 
 /* Mobile menu */
@@ -222,3 +237,23 @@ hr { width: 100%; }
     }
 }
 
+.expandable_card {
+
+}
+
+.accordion {}
+
+.accordion-button {
+    border: none;
+    background-color: #E5E5E5;
+    border-radius: 70px;
+    padding: 15px 20px 20px;
+
+}
+
+.accordion-button:not(.collapsed) {
+    border: none;
+    background-color: #E5E5E5;
+    border-radius: 70px;
+    padding: 15px 20px 20px;
+}

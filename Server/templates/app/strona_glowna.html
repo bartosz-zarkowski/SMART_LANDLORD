@@ -1,37 +1,63 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
 
-<div class="row mini_cards">
-    <div class="col-lg-12 card mini_card">
-        <div class="card-body mini_card_body">
-            <h1 class="card-title mini_card-title">37</h1>
-            <p class="card-text mini_card-text">mieszkań</p>
-        </div>
-    </div>
+{% block content %}
 
-    <div class="col-lg-12 card mini_card">
-        <div class="card-body mini_card_body">
-            <h1 class="card-title mini_card-title">0</h1>
-            <p class="card-text mini_card-text">błędów</p>
-        </div>
-    </div>
+    {% if userInfo=='właściciel' %}
 
-    <div class="col-lg-12 card mini_card">
-        <div class="card-body mini_card_body">
-            <h1 class="card-title mini_card-title">50</h1>
-            <p class="card-text mini_card-text">mieszkańców</p>
-        </div>
-    </div>
-</div>
+        <div class="row mini_cards">
+            <div class="col-lg-12 card mini_card">
+                <div class="card-body mini_card_body">
+                    <h1 class="card-title mini_card-title">37</h1>
+                    <p class="card-text mini_card-text">mieszkań</p>
+                </div>
+            </div>
 
-<div class="row big_card_row">
-    <div class="col big_card_col">
-        <div class="card big_card">
-            <h2 class="card-header big_card_header"> <i class="fs-16 bi-cash card-title-icon"></i> Zyski</h2>
-            <div class="card-body big_card_body">
-                <p class="card-text big_card-text"><img src="{{ url_for('static', filename='IMAGES/chart.png') }}"></p>
+            <div class="col-lg-12 card mini_card">
+                <div class="card-body mini_card_body">
+                    <h1 class="card-title mini_card-title">0</h1>
+                    <p class="card-text mini_card-text">błędów</p>
+                </div>
+            </div>
+
+            <div class="col-lg-12 card mini_card">
+                <div class="card-body mini_card_body">
+                    <h1 class="card-title mini_card-title">50</h1>
+                    <p class="card-text mini_card-text">mieszkańców</p>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="row big_card_row">
+            <div class="col big_card_col">
+                <div class="card big_card">
+                    <h2 class="card-header big_card_header"><i class="fs-16 bi-cash card-title-icon"></i> Zyski</h2>
+                    <div class="card-body big_card_body">
+                        <p class="card-text big_card-text"><img
+                                src="{{ url_for('static', filename='IMAGES/chart.png') }}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% elif userInfo=='najemca' %}
+
+        <div class="row big_card_row">
+            <div class="col big_card_col">
+                <div class="card big_card">
+                    <h2 class="card-header big_card_header"><i class="fs-16 bi-house-fill card-title-icon"></i> Mieszkanie - aleja piastów</h2>
+                    <div class="card-body big_card_body">
+                        <p class="card-text big_card-text">
+                        <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
+                        <i class="fs-16 bi-plug card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
+                        <i class="fs-16 bi-cash card-title-icon"></i> Kwota najmu: 1100zł, termin płatności: 01.02.2022r.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+
 
 {% endblock %}
