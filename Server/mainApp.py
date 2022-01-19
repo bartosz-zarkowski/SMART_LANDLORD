@@ -98,10 +98,10 @@ def twoje_lokale():
 
 @bp.route("/dodaj_lokal")
 @login_required
-def ustawienia():
+def dodaj_lokal():
     name, initials = getUserName()
     return render_template(
-        "app/strona_glowna.html",
+        "app/dodaj_lokal.html",
         userInfo=getUserRole(),
         name=name,
         initials=initials,
