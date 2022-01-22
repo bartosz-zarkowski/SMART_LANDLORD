@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 from flask import render_template
 from flask import g
 from flask import request
@@ -37,13 +37,39 @@ def index():
 @login_required
 def strona_glowna():
     name, initials = getUserName()
-    return render_template(
-        "app/strona_glowna.html",
-        userInfo=getUserRole(),
-        name=name,
-        initials=initials,
-        title="Strona Główna"
-    )
+    userPermission = getUserRole()
+    cursor, db = get_db()
+
+    if userPermission != "właściciel":
+        cursor.execute("SELECT l.city, l.street, l.localNumber FROM users as `u` "
+                       "JOIN locals as `l` on u.localCode = l.localCode WHERE userId = %s;", (g.user[0],))
+        userLocal = cursor.fetchall()
+
+        return render_template(
+            "app/strona_glowna.html",
+            userInfo=userPermission,
+            name=name,
+            initials=initials,
+            title="Strona Główna",
+            local=userLocal[0]
+        )
+    else:
+        cursor.execute("SELECT count(*) FROM locals WHERE ownerId = %s", (g.user[0],))
+        numberOfLocals = cursor.fetchall()
+
+        cursor.execute("SELECT count(*) FROM users as `u` "
+                       "JOIN locals as `l` on u.localCode = l.localCode WHERE l.ownerId = %s;", (g.user[0],))
+        numberOfTenants = cursor.fetchall()
+
+        return render_template(
+            "app/strona_glowna.html",
+            userInfo=userPermission,
+            name=name,
+            initials=initials,
+            title="Strona Główna",
+            numberOfLocals=numberOfLocals,
+            numberOfTenants=numberOfTenants
+        )
 
 
 @bp.route("/powiadomienia")
@@ -104,13 +130,18 @@ def twoje_lokale():
         cursor.execute("SELECT city, street, localNumber, localCode FROM locals WHERE ownerId = %s", (g.user[0],))
         currentOwnerLocals = cursor.fetchall()
 
+        cursor.execute("SELECT name, fullName, phoneNumber, u.localCode FROM users as `u` "
+                       "JOIN locals as `l` on u.localCode = l.localCode WHERE l.ownerId = %s;", (g.user[0],))
+        tenants = cursor.fetchall()
+
         return render_template(
             "app/twoje_lokale.html",
             userInfo=userPermission,
             name=name,
             initials=initials,
             title="Twoje lokale",
-            locals=currentOwnerLocals
+            locals=currentOwnerLocals,
+            tenants=tenants
         )
 
 

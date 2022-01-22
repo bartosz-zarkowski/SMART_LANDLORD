@@ -7,7 +7,7 @@
         <div class="row mini_cards">
             <div class="col-lg-12 card mini_card">
                 <div class="card-body mini_card_body">
-                    <h1 class="card-title mini_card-title">37</h1>
+                    <h1 class="card-title mini_card-title">{{ numberOfLocals[0][0] }}</h1>
                     <p class="card-text mini_card-text">mieszkań</p>
                 </div>
             </div>
@@ -21,7 +21,7 @@
 
             <div class="col-lg-12 card mini_card">
                 <div class="card-body mini_card_body">
-                    <h1 class="card-title mini_card-title">50</h1>
+                    <h1 class="card-title mini_card-title">{{ numberOfTenants[0][0] }}</h1>
                     <p class="card-text mini_card-text">mieszkańców</p>
                 </div>
             </div>
@@ -44,7 +44,7 @@
         <div class="row big_card_row">
             <div class="col big_card_col">
                 <div class="card big_card">
-                    <h2 class="card-header big_card_header"><i class="fs-16 bi-house-fill card-title-icon"></i> Mieszkanie - aleja piastów</h2>
+                    <h2 class="card-header big_card_header"><i class="fs-16 bi-house-fill card-title-icon"></i> Mieszkanie - {{ local[0] }}, {{ local[1] }} {{ local[2] }}</h2>
                     <div class="card-body big_card_body">
                         <p class="card-text big_card-text">
                         <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>

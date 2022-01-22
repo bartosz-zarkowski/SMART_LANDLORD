@@ -15,13 +15,28 @@
 <body class="text-center">
   <div class="container-fluid">
     <img class="mb-4" src="../../static/IMAGES/LOGO.png" alt="" width="400">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}"> {{ message|capitalize }} </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     <form class="form-signin" method="POST" >
-      <input name="name" type="text" id="inputName" class="form-control" placeholder="Imię" required="" autofocus="">
-      <br>
-      <input name="fullName" type="text" id="inputFullName" class="form-control" placeholder="Nazwisko" required="">
-      <br>
-      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus=""><br>
-      <input name="password" type="password" id="inputPhoneNumber" class="form-control"  placeholder="Hasło" required="" autofocus=""><br>
+      <input name="name" type="text" id="inputName" class="form-control text-center" placeholder="Imię" required="" autofocus="">
+        <br>
+      <input name="fullName" type="text" id="inputFullName" class="form-control text-center" placeholder="Nazwisko" required="">
+        <br>
+      <input name="email" type="email" id="inputEmail" class="form-control text-center" placeholder="Email" required="" autofocus="">
+        <br>
+      <input name="phoneNumber" type="tel" id="phoneNumber" class="form-control text-center" placeholder="Numer telefonu" required="" autofocus="">
+        <br>
+      <input name="password" type="password" id="inputPhoneNumber" class="form-control text-center"  placeholder="Hasło" required="" autofocus="">
+        <br>
+      <input name="localCode" type="text" id="localCode" class="form-control text-center"  placeholder="Kod lokalu" required="" autofocus="">
+        <br>
       <button class="btn btn-lg btn-primary btn-block" formmethod="post" type="submit">Zarejestruj</button>
     </form>
   </div>

@@ -1,5 +1,6 @@
 import functools
 
+import mariadb
 from flask import Blueprint
 from flask import flash
 from flask import g
@@ -55,7 +56,9 @@ def register():
         name = request.form["name"]
         fullName = request.form["fullName"]
         email = request.form["email"]
+        phoneNumber = request.form["phoneNumber"]
         password = request.form["password"]
+        localCode = request.form["localCode"]
         cursor, db = get_db()
         error = None
 
@@ -66,25 +69,35 @@ def register():
         elif not name:
             error = "Name is required."
         elif not fullName:
-            error = "Ful name is required."
+            error = "Full name is required."
+        elif not localCode:
+            error = "Local code is required."
+        elif not phoneNumber:
+            error = "Phone number is required."
 
         if error is None:
-            try:
-                cursor.execute(
-                    "INSERT INTO users (name, fullName, email, password) VALUES (%s, %s, %s, %s)",
-                    (name, fullName, email, generate_password_hash(password)),
-                )
-                db.commit()
-            except cursor.IntegrityError:
-                # The username was already taken, which caused the
-                # commit to fail. Show a validation error.
-                error = f"User with email {email} is already registered."
+            # Get localId of entered localCode
+            cursor.execute("SELECT localCode FROM locals WHERE localCode = %s", (localCode,))
+            localCode = cursor.fetchone()
+            if localCode is None:
+                error = f"Nie ma lokalu z podanym kodem!"
             else:
-                # Success, go to the login page.
-                return redirect(url_for("auth.login"))
+                try:
+                    cursor.execute(
+                        "INSERT INTO users (name, fullName, email, password, localCode, phoneNumber) "
+                        "VALUES (%s, %s, %s, %s, %s, %s)",
+                        (name, fullName, email, generate_password_hash(password), localCode[0], phoneNumber),
+                    )
+                    db.commit()
+                except mariadb.IntegrityError:
+                    # The username was already taken, which caused the
+                    # commit to fail. Show a validation error.
+                    error = f"Użytkownik z mailem {email} jest już zarejestrowany."
+                else:
+                    # Success, go to the login page.
+                    return redirect(url_for("auth.login"))
 
-        flash(error)
-        print(error)
+        flash(error, "danger")
 
     return render_template("auth/register.html")
 

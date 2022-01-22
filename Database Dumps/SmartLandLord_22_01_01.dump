@@ -1,0 +1,171 @@
+-- MySQL dump 10.13  Distrib 8.0.16, for osx10.12 (x86_64)
+--
+-- Host: localhost    Database: SmartLandLord
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.6.4-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `events`
+--
+
+DROP TABLE IF EXISTS `events`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `events` (
+  `eventId` int(11) NOT NULL AUTO_INCREMENT,
+  `sensorId` int(11) NOT NULL,
+  `eventDesc` varchar(255) NOT NULL,
+  PRIMARY KEY (`eventId`),
+  KEY `sensorId` (`sensorId`),
+  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`sensorId`) REFERENCES `sensors` (`sensorId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `events`
+--
+
+LOCK TABLES `events` WRITE;
+/*!40000 ALTER TABLE `events` DISABLE KEYS */;
+/*!40000 ALTER TABLE `events` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `history` (
+  `historyId` int(11) NOT NULL AUTO_INCREMENT,
+  `dateUpdated` datetime NOT NULL DEFAULT current_timestamp(),
+  `sensorId` int(11) NOT NULL,
+  `lastWeekValue` int(11) NOT NULL,
+  PRIMARY KEY (`historyId`),
+  KEY `sensorId` (`sensorId`),
+  CONSTRAINT `history_ibfk_1` FOREIGN KEY (`sensorId`) REFERENCES `sensors` (`sensorId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history`
+--
+
+LOCK TABLES `history` WRITE;
+/*!40000 ALTER TABLE `history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `locals`
+--
+
+DROP TABLE IF EXISTS `locals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `locals` (
+  `localId` int(11) NOT NULL AUTO_INCREMENT,
+  `latitude` varchar(30) DEFAULT NULL,
+  `longitude` varchar(30) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `street` varchar(20) NOT NULL,
+  `localNumber` varchar(10) NOT NULL,
+  `localCode` varchar(10) NOT NULL,
+  `ownerId` int(11) NOT NULL,
+  PRIMARY KEY (`localId`),
+  UNIQUE KEY `localCode` (`localCode`) USING BTREE,
+  KEY `userId` (`ownerId`),
+  CONSTRAINT `locals_ibfk_1` FOREIGN KEY (`ownerId`) REFERENCES `users` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locals`
+--
+
+LOCK TABLES `locals` WRITE;
+/*!40000 ALTER TABLE `locals` DISABLE KEYS */;
+INSERT INTO `locals` VALUES (1,NULL,NULL,'Szczecin','Randomowa','23','WYQNCOBS2R',1),(2,NULL,NULL,'Warszawa','Polna','35','MZYNXA8CPG',1);
+/*!40000 ALTER TABLE `locals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sensors`
+--
+
+DROP TABLE IF EXISTS `sensors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `sensors` (
+  `sensorId` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT NULL,
+  `localId` int(11) DEFAULT NULL,
+  `sensorName` varchar(30) NOT NULL,
+  `sensorType` varchar(30) NOT NULL,
+  `timeLimit` int(11) DEFAULT NULL,
+  `valueLimit` int(11) DEFAULT NULL,
+  PRIMARY KEY (`sensorId`),
+  KEY `userId` (`userId`),
+  KEY `localId` (`localId`),
+  CONSTRAINT `sensors_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
+  CONSTRAINT `sensors_ibfk_2` FOREIGN KEY (`localId`) REFERENCES `locals` (`localId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sensors`
+--
+
+LOCK TABLES `sensors` WRITE;
+/*!40000 ALTER TABLE `sensors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sensors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `users` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `fullName` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `phoneNumber` varchar(11) DEFAULT '-',
+  `role` text NOT NULL DEFAULT 'tenant',
+  `password` varchar(255) NOT NULL,
+  `localCode` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `email` (`email`) USING BTREE,
+  KEY `localCode` (`localCode`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`localCode`) REFERENCES `locals` (`localCode`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Jakub','Paszkiewicz','j.pasz@mail.com','-','owner','pbkdf2:sha256:260000$dKs0dpgu3i5cKDay$0af479139c59c86c94e62b8c024b63fbb42dae452caf2ed2df8e511c05b92656',NULL),(2,'Jan','Kowalski','j.kowal@mail.com','-','tenant','pbkdf2:sha256:260000$YpYsVjsWfJHnGp9n$9ee1d59aed0521e198b9003dcadabdf43be0e2af949b443a5191e80901b1174d','WYQNCOBS2R'),(22,'Adam','Nowak','a.nowak@mail.com','123123123','tenant','pbkdf2:sha256:260000$r55PSBZwyUNrPLon$bc5475a9a88d392aaea692d358f9d1ce096eb8866f8b17ee5d751a917f9fceea','WYQNCOBS2R'),(23,'Nina','Adamska','n.adamska@mail.com','321321321','tenant','pbkdf2:sha256:260000$5T8hAN8rlEkSgzIm$f638229769336dc38ee25928621599fb746fae487ea8608775bd735dc9b3a382','WYQNCOBS2R'),(24,'Roksana','Górska','r.gorska@mail.com','345345345','tenant','pbkdf2:sha256:260000$Bu98OgJ3ciCY0Uyc$d822086df30689b9aa25080ec55aceaef1c0ebcffc60f5f5ee419e16430acddb','MZYNXA8CPG');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'SmartLandLord'
+--
