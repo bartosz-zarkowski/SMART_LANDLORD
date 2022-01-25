@@ -1,6 +1,10 @@
 import mariadb
 import sys
 from flask import g
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_db():
@@ -12,11 +16,11 @@ def get_db():
         # Connect to MariaDB Platform
         try:
             conn = mariadb.connect(
-                user="dev",
-                password="",
-                host="localhost",
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASS'),
+                host=os.getenv('DB_HOST'),
                 port=3306,
-                database="SmartLandLord"
+                database=os.getenv('DB_DB')
             )
         except mariadb.Error as e:
             print(f"Error connecting to MariaDB Platform: {e}")
