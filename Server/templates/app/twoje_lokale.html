@@ -1,110 +1,126 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<div class="accordion" id="accordionExample">
 
-    <div class="accordion" id="accordionExample">
-
-        {% for local in locals %}
-
-
-            {#    SINGLE CARD    #}
-            <div class="accordion-item expandable_card">
-                <h2 class="accordion-header expandable_card_header" id="heading{{ loop.index }}">
-                    <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+    {% for local in locals %} {# SINGLE CARD #}
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="heading{{ loop.index }}">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
                         <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - {{ local[0] }}, {{ local[1] }} {{ local[2] }}
+                        <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert"></i>
                     </button>
-                </h2>
-                <div id="collapse{{ loop.index }}" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
-                    <div class="accordion-body expandable_card_body">
+        </h2>
+        <div id="collapse{{ loop.index }}" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
+            <div class="accordion-body expandable_card_body">
 
-                        <div style="display: none">
-                            <div class="people-list-modal-background"></div>
-                            <div class="people-list-modal">
-                                <i class="people-list-modal-exit-icon bi-x"></i>
-                                <h4 class="people-list-modal-title">Lista najemców</h4>
-                                <hr class="people-list-modal-line">
-                                <div class="people-list-modal-body">
-                                    <table class="table tenants-table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Imię</th>
-                                                <th scope="col">Nazwisko</th>
-                                                <th scope="col">Telefon</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for tenant in tenants %}
-                                            {% if tenant[3]==local[3] %}
-                                                <tr>
-                                                    <td>{{ tenant[0] }}</td>
-                                                    <td>{{ tenant[1] }}</td>
-                                                    <td>{{ tenant[2] }}</td>
-                                                </tr>
+                <div style="display: none">
+                    <div class="people-list-modal-background"></div>
+                    <div class="people-list-modal">
+                        <i class="people-list-modal-exit-icon bi-x"></i>
+                        <h4 class="people-list-modal-title">Lista najemców</h4>
+                        <hr class="people-list-modal-line">
+                        <div class="people-list-modal-body">
+                            <table class="table tenants-table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Imię</th>
+                                        <th scope="col">Nazwisko</th>
+                                        <th scope="col">Telefon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tenant in tenants %} {% if tenant[3]==local[3] %}
+                                    <tr>
+                                        <td>{{ tenant[0] }}</td>
+                                        <td>{{ tenant[1] }}</td>
+                                        <td>{{ tenant[2] }}</td>
+                                    </tr>
 
-                                            {% endif %}
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                    {% endif %} {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
-
-                        <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
-                        <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
-                        <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
-                        <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu: 1100zł, termin płatności: 01.02.2022r.<br>
-                        <i class="fs-16 bi-hash card-title-icon"></i> Kod lokalu: <b>{{ local[3] }}</b>
                     </div>
                 </div>
+
+                <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
+                <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
+                <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
+                <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
+                <span class="kwota-najmu">1100</span>zł, termin płatności: <span class="termin-platnosci">1</span> dzień miesiąca.<br>
+                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b>{{ local[3] }}</b>
+                <i class="fs-16 bi bi-pencil-square card-title-icon editButton"></i>
             </div>
-        {% endfor %}
-
+        </div>
     </div>
+    {% endfor %}
 
-    <script>
-        let expandable_cards = document.getElementsByClassName("expandable_card");
-        for (let card of expandable_cards) {
-            card.addEventListener("click", () => {
-                let header = card.firstElementChild;
-                let button = header.firstElementChild;
+</div>
 
-                for (let curcard of expandable_cards) {
-                    let curheader = curcard.firstElementChild;
-                    let curbutton = curheader.firstElementChild;
-                    if (curbutton.classList.contains("collapsed")) {
-                        setTimeout(() => {
-                            curbutton.classList.remove("bottom-border-radius-flat");
-                        }, 400)
-                    }
-                }
+<script>
+    let expandable_cards = document.getElementsByClassName("expandable_card");
+    for (let card of expandable_cards) {
+        card.addEventListener("click", () => {
+            let header = card.firstElementChild;
+            let button = header.firstElementChild;
 
-                if (button.classList.contains("collapsed")) {
+            for (let curcard of expandable_cards) {
+                let curheader = curcard.firstElementChild;
+                let curbutton = curheader.firstElementChild;
+                if (curbutton.classList.contains("collapsed")) {
                     setTimeout(() => {
-                        button.classList.remove("bottom-border-radius-flat");
+                        curbutton.classList.remove("bottom-border-radius-flat");
                     }, 400)
-                } else {
-                   button.classList.add("bottom-border-radius-flat");
                 }
+            }
 
+            if (button.classList.contains("collapsed")) {
+                setTimeout(() => {
+                    button.classList.remove("bottom-border-radius-flat");
+                }, 400)
+            } else {
+                button.classList.add("bottom-border-radius-flat");
+            }
+
+        });
+    }
+
+    let peopleListElements = document.getElementsByClassName("people-list");
+    for (let peopleList of peopleListElements) {
+        peopleList.addEventListener("click", () => {
+            let currentLocal = peopleList.parentElement;
+            let peopleListModal = currentLocal.firstElementChild;
+            let exitIcon = peopleListModal.lastElementChild.firstElementChild;
+
+            peopleListModal.style.display = "block";
+
+            exitIcon.addEventListener("click", () => {
+                peopleListModal.style.display = "none";
             });
-        }
 
-        let peopleListElements = document.getElementsByClassName("people-list");
-        for (let peopleList of peopleListElements) {
-            peopleList.addEventListener("click", () => {
-                let currentLocal = peopleList.parentElement;
-                let peopleListModal = currentLocal.firstElementChild;
-                let exitIcon = peopleListModal.lastElementChild.firstElementChild;
+        });
+    }
 
-                peopleListModal.style.display = "block";
+    let editButtons = document.getElementsByClassName("editButton");
+    for (let editButton of editButtons) {
+        editButton.addEventListener("click", () => {
+            if (!editButton.classList.contains("edit-mode")) {
+                let currentLocal = editButton.parentElement;
+                let kwotaNajmu = currentLocal.querySelector(".kwota-najmu");
+                let terminPlatnosci = currentLocal.querySelector(".termin-platnosci");
 
-                exitIcon.addEventListener("click", () => {
-                    peopleListModal.style.display = "none";
-                });
+                kwotaNajmu.innerHTML = "<input value='1100' size='3'></input>";
+                terminPlatnosci.innerHTML = "<input value='1' size='1'></input>";
 
-            });
-        }
-    </script>
+                editButton.classList.remove("bi-pencil-square");
+                editButton.classList.add("bi-arrow-up-right-square-fill");
+            }
+
+
+
+
+        });
+    }
+</script>
 
 {% endblock %}
-

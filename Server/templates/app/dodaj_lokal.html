@@ -1,35 +1,43 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<form class="add_local_form" method="POST">
 
-    <form class="add_local_form" method="POST">
+    <div class="mb-3 add_local_form_item">
+        <label for="city" class="form-label">Miasto</label>
+        <input name="city" type="text" class="form-control add_local_form_input" id="city">
+    </div>
 
-        <div class="mb-3 add_local_form_item">
-            <label for="city" class="form-label">Miasto</label>
-            <input name="city" type="text" class="form-control add_local_form_input" id="city">
-        </div>
+    <div class="mb-3 add_local_form_item">
+        <label for="street" class="form-label">Ulica</label>
+        <input name="street" type="text" class="form-control add_local_form_input" id="street">
+    </div>
 
-        <div class="mb-3 add_local_form_item">
-            <label for="street" class="form-label">Ulica</label>
-            <input name="street" type="text" class="form-control add_local_form_input" id="street">
-        </div>
+    <div class="mb-3 add_local_form_item">
+        <label for="localNumber" class="form-label">Numer lokalu</label>
+        <input name="localNumber" type="text" class="form-control add_local_form_input" id="localNumber">
+    </div>
 
-        <div class="mb-3 add_local_form_item">
-            <label for="localNumber" class="form-label">Numer lokalu</label>
-            <input name="localNumber" type="text" class="form-control add_local_form_input" id="localNumber">
-        </div>
+    <div class="mb-3 add_local_form_item">
+        <label for="rentPrice" class="form-label">Kwota najmu</label>
+        <input name="rentPrice" type="number" class="form-control add_local_form_input" id="rentPrice">
+    </div>
 
-        <div class="mb-3 add_local_form_item">
-            <label for="localCode" class="form-label">Unikalny kod lokalu</label>
-            <input name="localCode" type="text" class="form-control add_local_form_input" id="localCode" value="" placeholder="--- Kliknij aby wygenerować kod ---" readonly="readonly">
-            <div id="localCodeHelp" class="form-text">Kod będzie potrzebny najemcy, aby mógł się zarejestrować do twojego mieszkania.</div>
-        </div>
+    <div class="mb-3 add_local_form_item">
+        <label for="paymentDay" class="form-label">Termin płatności</label>
+        <input name="paymentDay" type="number" class="form-control add_local_form_input" id="paymentDay" min="0" max="31">
+        <div id="localCodeHelp" class="form-text">Wybierz dzień miesiąca do którego najemca powinien dokonać płatności.</div>
+    </div>
 
-      <button type="submit" class="btn submit-button">Dodaj lokal</button>
-    </form>
+    <div class="mb-3 add_local_form_item">
+        <label for="localCode" class="form-label">Unikalny kod lokalu</label>
+        <input name="localCode" type="text" class="form-control add_local_form_input" id="localCode" value="" placeholder="--- Kliknij aby wygenerować kod ---" readonly="readonly">
+        <div id="localCodeHelp" class="form-text">Kod będzie potrzebny najemcy, aby mógł się zarejestrować do twojego mieszkania.</div>
+    </div>
 
-    <script>
+    <button type="submit" class="btn submit-button">Dodaj lokal</button>
+</form>
 
+<script>
     let localCodeInput = document.getElementById("localCode");
     localCodeInput.style.cursor = "pointer";
 
@@ -40,16 +48,15 @@
     });
 
     function generateCode() {
-        let result           = '';
-        let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let charactersLength = characters.length;
-        for ( let i = 0; i < 10; i++ ) {
+        for (let i = 0; i < 10; i++) {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
     }
-
-    </script>
+</script>
 
 
 

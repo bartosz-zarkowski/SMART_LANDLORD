@@ -3,6 +3,8 @@ from flask import render_template
 from flask import g
 from flask import request
 from flask import flash
+from flask import redirect
+from flask import url_for
 
 from db import get_db
 from auth import login_required
@@ -211,3 +213,19 @@ def ustawienia():
         initials=initials,
         title="Ustawienia"
     )
+
+
+@bp.route('/update_local/<local_id>/<kwota_najmu>/<termin_platnosci>', methods=("PATCH",))
+@login_required
+def create(local_id=None, kwota_najmu=None, termin_platnosci=None):
+
+    cursor, db = get_db()
+    cursor.execute(
+        "UPDATE locals SET leasePrice=%s, dueDay=%s WHERE localId=%s",
+        (kwota_najmu, termin_platnosci, local_id),
+    )
+    db.commit()
+
+
+    return redirect(url_for("twoje_lokale"))
+
