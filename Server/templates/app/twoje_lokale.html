@@ -6,9 +6,9 @@
     <div class="accordion-item expandable_card">
         <h2 class="accordion-header expandable_card_header" id="heading{{ loop.index }}">
             <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
-                        <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - {{ local[0] }}, {{ local[1] }} {{ local[2] }}
-                        <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert"></i>
-                    </button>
+                <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - {{ local[0] }}, {{ local[1] }} {{ local[2] }}
+                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert {% if localsStatuses[loop.index0][1]==0 %}alert_red{% else %}alert_green{% endif %}"></i>
+            </button>
         </h2>
         <div id="collapse{{ loop.index }}" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
             <div class="accordion-body expandable_card_body">
@@ -47,8 +47,8 @@
                 <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
                 <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
                 <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
-                <span class="kwota-najmu">1100</span>zł, termin płatności: <span class="termin-platnosci">1</span> dzień miesiąca.<br>
-                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b>{{ local[3] }}</b>
+                <span class="kwota-najmu">{{ local[5] }}</span>zł, termin płatności: <span class="termin-platnosci">{{ local[6] }}</span> dzień miesiąca.<br>
+                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b class="local-code">{{ local[3] }}</b>
                 <i class="fs-16 bi bi-pencil-square card-title-icon editButton"></i>
             </div>
         </div>
@@ -104,16 +104,48 @@
     let editButtons = document.getElementsByClassName("editButton");
     for (let editButton of editButtons) {
         editButton.addEventListener("click", () => {
+            let currentLocal = editButton.parentElement;
+
             if (!editButton.classList.contains("edit-mode")) {
-                let currentLocal = editButton.parentElement;
                 let kwotaNajmu = currentLocal.querySelector(".kwota-najmu");
                 let terminPlatnosci = currentLocal.querySelector(".termin-platnosci");
 
-                kwotaNajmu.innerHTML = "<input value='1100' size='3'></input>";
-                terminPlatnosci.innerHTML = "<input value='1' size='1'></input>";
+                let oldKwota = kwotaNajmu.innerHTML;
+                let oldTermin = terminPlatnosci.innerHTML;
+
+                kwotaNajmu.innerHTML =      `<input class='kwota_input' value='${oldKwota}' size='4'/>`;
+                terminPlatnosci.innerHTML = `<input class='termin_input' value='${oldTermin}' size='2'/>`;
 
                 editButton.classList.remove("bi-pencil-square");
                 editButton.classList.add("bi-arrow-up-right-square-fill");
+                editButton.classList.add("edit-mode");
+
+            } else {
+                let kwotaNajmu = currentLocal.querySelector(".kwota-najmu");
+                let terminPlatnosci = currentLocal.querySelector(".termin-platnosci");
+
+                let localCode = currentLocal.querySelector(".local-code").innerHTML;
+                let kwotaValue = currentLocal.querySelector(".kwota_input").value;
+                let terminValue = currentLocal.querySelector(".termin_input").value;
+
+                editButton.classList.remove("bi-arrow-up-right-square-fill");
+                editButton.classList.remove("edit-mode");
+                editButton.classList.add("bi-pencil-square");
+
+                kwotaNajmu.innerHTML =      kwotaValue;
+                terminPlatnosci.innerHTML = terminValue;
+
+
+                fetch('/update_local', {
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  method: 'PATCH',
+                  body: JSON.stringify( { local_code: localCode, kwota_najmu: kwotaValue, termin_platnosci: terminValue} )
+                });
+
+
             }
 
 

@@ -113,7 +113,7 @@ def podsumowanie():
     )
 
 
-@bp.route("/twoje_lokale")
+@bp.route("/twoje_lokale", methods=("GET", "PATCH"))
 @login_required
 def twoje_lokale():
     name, initials = getUserName()
@@ -129,12 +129,20 @@ def twoje_lokale():
     else:
         cursor, db = get_db()
 
-        cursor.execute("SELECT city, street, localNumber, localCode FROM locals WHERE ownerId = %s", (g.user[0],))
+        cursor.execute("SELECT city, street, localNumber, localCode, localId, leasePrice, dueDay "
+                       "FROM locals WHERE ownerId = %s", (g.user[0],))
         currentOwnerLocals = cursor.fetchall()
 
         cursor.execute("SELECT name, fullName, phoneNumber, u.localCode FROM users as `u` "
                        "JOIN locals as `l` on u.localCode = l.localCode WHERE l.ownerId = %s;", (g.user[0],))
         tenants = cursor.fetchall()
+
+        cursor.execute("SELECT s.localId, IF((SUM(status)<COUNT(status)), 0, 1) as 'localStatus' FROM sensors as `s` "
+                       "JOIN locals as `l` ON s.localId=l.localId "
+                       "WHERE l.ownerId=%s "
+                       "GROUP BY s.localId", (g.user[0],))
+        localsStatuses = cursor.fetchall()
+        print(localsStatuses)
 
         return render_template(
             "app/twoje_lokale.html",
@@ -143,6 +151,7 @@ def twoje_lokale():
             initials=initials,
             title="Twoje lokale",
             locals=currentOwnerLocals,
+            localsStatuses=localsStatuses,
             tenants=tenants
         )
 
@@ -156,6 +165,8 @@ def dodaj_lokal():
         street = request.form["street"]
         localNumber = request.form["localNumber"]
         localCode = request.form["localCode"]
+        dueDay = request.form["dueDay"]
+        leasePrice = request.form["leasePrice"]
         cursor, db = get_db()
         error = None
 
@@ -167,14 +178,26 @@ def dodaj_lokal():
             error = "Local number is required."
         elif not localCode:
             error = "Local Code is required."
+        elif not dueDay:
+            error = "Due day is required."
+        elif not leasePrice:
+            error = "Lease price is required."
 
         if error is None:
             try:
                 cursor.execute(
-                    "INSERT INTO locals (ownerId, city, street, localNumber, localCode) VALUES (%s, %s, %s, %s, %s)",
-                    (g.user[0], city, street, localNumber, localCode),
+                    "INSERT INTO locals (ownerId, city, street, localNumber, localCode, dueDay, leasePrice) "
+                    "VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                    (g.user[0], city, street, localNumber, localCode, dueDay, leasePrice),
                 )
                 db.commit()
+
+                cursor.execute("SELECT localId FROM locals WHERE localCode=%s", (localCode,))
+                newLocalId = cursor.fetchall()
+
+                cursor.execute("INSERT INTO sensors (localId, status) VALUES (%s, %s)", (newLocalId[0][0], 1))
+                db.commit()
+
             except db.IntegrityError:
                 flash("Lokal z takim kodem już istnieje, spróbuj ponownie", 'danger')
             else:
@@ -215,17 +238,21 @@ def ustawienia():
     )
 
 
-@bp.route('/update_local/<local_id>/<kwota_najmu>/<termin_platnosci>', methods=("PATCH",))
+@bp.route('/update_local', methods=("PATCH",))
 @login_required
-def create(local_id=None, kwota_najmu=None, termin_platnosci=None):
+def create():
+    json = request.json
+
+    local_code = json['local_code']
+    kwota_najmu = json['kwota_najmu']
+    termin_platnosci = json['termin_platnosci']
 
     cursor, db = get_db()
     cursor.execute(
-        "UPDATE locals SET leasePrice=%s, dueDay=%s WHERE localId=%s",
-        (kwota_najmu, termin_platnosci, local_id),
+        "UPDATE locals SET leasePrice=%s, dueDay=%s WHERE localCode=%s",
+        (kwota_najmu, termin_platnosci, local_code),
     )
     db.commit()
 
-
-    return redirect(url_for("twoje_lokale"))
+    return redirect(url_for("app.twoje_lokale"))
 
