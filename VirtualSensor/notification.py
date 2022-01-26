@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-def sendEmail(receiver_email,email_password):
+def sendEmail(receiver_email,email_password,ErrorType):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "smartlandlordzut@gmail.com"
@@ -13,10 +13,10 @@ def sendEmail(receiver_email,email_password):
     message["From"] = sender_email
     message["To"] = receiver_email
 
-    html="""\
+    html1="""\
             <html>
                 <body>
-                    Wiadomosc dotyczaca mieszkania
+                    Wiadomosc dotyczaca mieszkania1
                     <div style="color:red;font-size:30px;">
                     Test
                     </div>
@@ -27,8 +27,25 @@ def sendEmail(receiver_email,email_password):
                 </body>
             </html>
         """
-    
-    part2=MIMEText(html,"html")
+
+    html2="""\
+            <html>
+                <body>
+                    Wiadomosc dotyczaca mieszkania2
+                    <div style="color:red;font-size:30px;">
+                    Test
+                    </div>
+                    <div style="color:pink;font-size:20px;">
+                    Test
+                    </div>
+                </body>
+            </html>
+        """
+    part2=''
+    if ErrorType == 1:
+        part2=MIMEText(html1,"html")
+    elif ErrorType == 2:
+        part2=MIMEText(html2,"html")
 
     message.attach(part2)
     
