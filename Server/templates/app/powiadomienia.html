@@ -1,0 +1,155 @@
+{% extends 'base.html' %} {% block content %}
+
+<p>
+    <h3>Aktualne</h3>
+    <hr class="alertHr">
+</p>
+<div class="accordion" id="accordionExample">
+
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="true" aria-controls="">
+                        <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - 1, 2 3
+                        <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert"></i>
+                    </button>
+        </h2>
+        <div id="" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="" data-bs-parent="#accordionExample">
+            <div class="accordion-body expandable_card_body">
+                <div style="display: none">
+                    <div class="people-list-modal-background"></div>
+                    <div class="people-list-modal">
+                        <i class="people-list-modal-exit-icon bi-x"></i>
+                        <h4 class="people-list-modal-title">Lista najemców</h4>
+                        <hr class="people-list-modal-line">
+                        <div class="people-list-modal-body">
+                            <table class="table tenants-table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Imię</th>
+                                        <th scope="col">Nazwisko</th>
+                                        <th scope="col">Telefon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
+                <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
+                <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
+                <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
+                <span class="kwota-najmu">1100</span>zł, termin płatności: <span class="termin-platnosci">1</span> dzień miesiąca.<br>
+                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b>3</b>
+                <i class="fs-16 bi bi-pencil-square card-title-icon editButton"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    <h3 style=>Historia</h3>
+    <hr class="alertHr">
+</p>
+
+<div class="accordion" id="accordionExample">
+
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="true" aria-controls="">
+                        <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - 1, 2 3
+                        <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert"></i>
+                    </button>
+        </h2>
+        <div id="" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="" data-bs-parent="#accordionExample">
+            <div class="accordion-body expandable_card_body">
+                <div style="display: none">
+                    <div class="people-list-modal-background"></div>
+                    <div class="people-list-modal">
+                        <i class="people-list-modal-exit-icon bi-x"></i>
+                        <h4 class="people-list-modal-title">Lista najemców</h4>
+                        <hr class="people-list-modal-line">
+                        <div class="people-list-modal-body">
+                            <table class="table tenants-table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Imię</th>
+                                        <th scope="col">Nazwisko</th>
+                                        <th scope="col">Telefon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
+                <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
+                <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
+                <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
+                <span class="kwota-najmu">1100</span>zł, termin płatności: <span class="termin-platnosci">1</span> dzień miesiąca.<br>
+                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b>3</b>
+                <i class="fs-16 bi bi-pencil-square card-title-icon editButton"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+    let expandable_cards = document.getElementsByClassName("expandable_card");
+    for (let card of expandable_cards) {
+        card.addEventListener("click", () => {
+            let header = card.firstElementChild;
+            let button = header.firstElementChild;
+
+            for (let curcard of expandable_cards) {
+                let curheader = curcard.firstElementChild;
+                let curbutton = curheader.firstElementChild;
+                if (curbutton.classList.contains("collapsed")) {
+                    setTimeout(() => {
+                        curbutton.classList.remove("bottom-border-radius-flat");
+                    }, 400)
+                }
+            }
+
+            if (button.classList.contains("collapsed")) {
+                setTimeout(() => {
+                    button.classList.remove("bottom-border-radius-flat");
+                }, 400)
+            } else {
+                button.classList.add("bottom-border-radius-flat");
+            }
+
+        });
+    }
+
+    let peopleListElements = document.getElementsByClassName("people-list");
+    for (let peopleList of peopleListElements) {
+        peopleList.addEventListener("click", () => {
+            let currentLocal = peopleList.parentElement;
+            let peopleListModal = currentLocal.firstElementChild;
+            let exitIcon = peopleListModal.lastElementChild.firstElementChild;
+
+            peopleListModal.style.display = "block";
+
+            exitIcon.addEventListener("click", () => {
+                peopleListModal.style.display = "none";
+            });
+
+        });
+    }
+</script> -->
+
+{% endblock %}
