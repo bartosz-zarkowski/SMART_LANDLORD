@@ -63,6 +63,11 @@ def strona_glowna():
                        "JOIN locals as `l` on u.localCode = l.localCode WHERE l.ownerId = %s;", (g.user[0],))
         numberOfTenants = cursor.fetchall()
 
+        # Statusy lokali
+        cursor.execute("SELECT (COUNT(status)-SUM(status)) as 'errors' FROM sensors as `s` "
+                       "JOIN locals as `l` ON s.localId=l.localId WHERE l.ownerId=%s", (g.user[0],))
+        errorsSum = cursor.fetchall()
+
         return render_template(
             "app/strona_glowna.html",
             userInfo=userPermission,
@@ -70,7 +75,8 @@ def strona_glowna():
             initials=initials,
             title="Strona Główna",
             numberOfLocals=numberOfLocals,
-            numberOfTenants=numberOfTenants
+            numberOfTenants=numberOfTenants,
+            numberOfErrors=errorsSum
         )
 
 
@@ -129,20 +135,27 @@ def twoje_lokale():
     else:
         cursor, db = get_db()
 
+        # Lokale danego właściciela
         cursor.execute("SELECT city, street, localNumber, localCode, localId, leasePrice, dueDay "
                        "FROM locals WHERE ownerId = %s", (g.user[0],))
         currentOwnerLocals = cursor.fetchall()
 
+        # Najemcy
         cursor.execute("SELECT name, fullName, phoneNumber, u.localCode FROM users as `u` "
                        "JOIN locals as `l` on u.localCode = l.localCode WHERE l.ownerId = %s;", (g.user[0],))
         tenants = cursor.fetchall()
 
+        # Czujniki
+        cursor.execute("SELECT s.localId, sensorName, sensorType, lastActive, s.status FROM sensors as `s` "
+                       "JOIN locals as `l` ON s.localId=l.localId WHERE l.ownerId=%s;", (g.user[0],))
+        sensors = cursor.fetchall()
+
+        # Statusy lokali
         cursor.execute("SELECT s.localId, IF((SUM(status)<COUNT(status)), 0, 1) as 'localStatus' FROM sensors as `s` "
                        "JOIN locals as `l` ON s.localId=l.localId "
                        "WHERE l.ownerId=%s "
                        "GROUP BY s.localId", (g.user[0],))
         localsStatuses = cursor.fetchall()
-        print(localsStatuses)
 
         return render_template(
             "app/twoje_lokale.html",
@@ -152,7 +165,8 @@ def twoje_lokale():
             title="Twoje lokale",
             locals=currentOwnerLocals,
             localsStatuses=localsStatuses,
-            tenants=tenants
+            tenants=tenants,
+            sensors=sensors
         )
 
 

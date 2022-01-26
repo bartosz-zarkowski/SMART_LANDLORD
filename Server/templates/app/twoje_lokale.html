@@ -6,21 +6,21 @@
     <div class="accordion-item expandable_card">
         <h2 class="accordion-header expandable_card_header" id="heading{{ loop.index }}">
             <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
-                <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - {{ local[0] }}, {{ local[1] }} {{ local[2] }}
+                <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i>{{ local[0] }}, {{ local[1] }} {{ local[2] }}
                 <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert {% if localsStatuses[loop.index0][1]==0 %}alert_red{% else %}alert_green{% endif %}"></i>
             </button>
         </h2>
         <div id="collapse{{ loop.index }}" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
             <div class="accordion-body expandable_card_body">
 
-                <div style="display: none">
-                    <div class="people-list-modal-background"></div>
-                    <div class="people-list-modal">
-                        <i class="people-list-modal-exit-icon bi-x"></i>
-                        <h4 class="people-list-modal-title">Lista najemców</h4>
-                        <hr class="people-list-modal-line">
-                        <div class="people-list-modal-body">
-                            <table class="table tenants-table table-hover">
+                <div class="people-list-modal-container" style="display: none">
+                    <div class="modal-background"></div>
+                    <div class="modal-main">
+                        <i class="modal-exit-icon bi-x"></i>
+                        <h4 class="modal-title">Lista najemców</h4>
+                        <hr class="modal-line">
+                        <div class="modal-body">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Imię</th>
@@ -43,7 +43,48 @@
                     </div>
                 </div>
 
+                <div class="sensors-list-modal-container" style="display: none">
+                    <div class="modal-background"></div>
+                    <div class="modal-main">
+                        <i class="modal-exit-icon bi-x"></i>
+                        <h4 class="modal-title">Lista czujników</h4>
+                        <hr class="modal-line">
+                        <div class="modal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nazwa</th>
+                                        <th scope="col">Typ</th>
+                                        <th scope="col">Ostatnia aktywność</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for sensor in sensors %} {% if sensor[0]==local[4] %}
+                                    <tr>
+                                        <td>{{ sensor[1] }}</td>
+                                        <td>{{ sensor[2] }}</td>
+                                        <td>{{ sensor[3] }}</td>
+                                        <td>
+                                            <p style="margin: 0">
+                                                {% if sensor[4]==0 %}
+                                                    <i class="sensor_alert alert_red">offline</i>
+                                                {% else %}
+                                                    <i class="sensor_alert alert_green">online</i>
+                                                {% endif %}
+                                            </p>
+                                        </td>
+                                    </tr>
+
+                                    {% endif %} {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
                 <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
+                <i class="fs-16 bi-cpu-fill card-title-icon"></i> <span class="sensors-list">Lista czujników</span><br>
                 <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
                 <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
                 <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
@@ -89,13 +130,29 @@
     for (let peopleList of peopleListElements) {
         peopleList.addEventListener("click", () => {
             let currentLocal = peopleList.parentElement;
-            let peopleListModal = currentLocal.firstElementChild;
+            let peopleListModal = currentLocal.querySelector(".people-list-modal-container");
             let exitIcon = peopleListModal.lastElementChild.firstElementChild;
 
             peopleListModal.style.display = "block";
 
             exitIcon.addEventListener("click", () => {
                 peopleListModal.style.display = "none";
+            });
+
+        });
+    }
+
+    let sensorsListElements = document.getElementsByClassName("sensors-list");
+    for (let sensorsList of sensorsListElements) {
+        sensorsList.addEventListener("click", () => {
+            let currentLocal = sensorsList.parentElement;
+            let sensorsListModal = currentLocal.querySelector(".sensors-list-modal-container");
+            let exitIcon = sensorsListModal.lastElementChild.firstElementChild;
+
+            sensorsListModal.style.display = "block";
+
+            exitIcon.addEventListener("click", () => {
+                sensorsListModal.style.display = "none";
             });
 
         });

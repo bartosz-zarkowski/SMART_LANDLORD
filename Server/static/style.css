@@ -382,7 +382,11 @@ hr {
     align-items: center;
     font-size: 90px;
     position: absolute;
-    right: 40px;
+    right: 25px;
+}
+
+.sensor_alert {
+    font-size: 17px;
 }
 
 .alert_green {
@@ -413,17 +417,17 @@ hr {
 /* ---------------- */
 
 
-/* PEOPLE LIST MODAL */
+/* MODALS */
 
-.people-list {
+.people-list, .sensors-list {
     cursor: pointer;
 }
 
-.people-list:hover {
+.people-list:hover, .sensors-list:hover {
     font-weight: bold;
 }
 
-.people-list-modal-background {
+.modal-background {
     background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
     top: 0;
@@ -433,7 +437,7 @@ hr {
     z-index: 3;
 }
 
-.people-list-modal {
+.modal-main {
     position: fixed;
     background-color: white;
     border-radius: 50px;
@@ -446,7 +450,7 @@ hr {
     z-index: 4;
 }
 
-.people-list-modal-title {
+.modal-title {
     display: flex;
     justify-content: center;
     font-size: 25px;
@@ -454,7 +458,7 @@ hr {
     margin-bottom: 30px;
 }
 
-.people-list-modal-body {
+.modal-body {
     display: block;
     justify-content: center;
     height: auto;
@@ -465,7 +469,7 @@ hr {
     padding-bottom: 10px;
 }
 
-.people-list-modal-exit-icon {
+.modal-exit-icon {
     font-size: 30px;
     position: fixed;
     right: 40px;
@@ -474,13 +478,15 @@ hr {
 }
 
 @media (max-width: 700px) {
-    .people-list-modal {
+    .modal-main {
         width: 90%;
     }
-    .people-list-modal-title {
+    .modal-title {
         margin-top: 30px;
     }
 }
+
+/* ----------------- */
 
 .editButton {
     display: flex;
@@ -492,5 +498,15 @@ hr {
     cursor: pointer;
 }
 
+.accordion-button::after {
+    width: 80px;
+    background-position: right;
+}
 
-/* ----------------- */
+.accordion-button:not(.collapsed)::after {
+    background-position: left;
+}
+
+.table {
+    vertical-align: middle;
+}
