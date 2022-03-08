@@ -27,23 +27,13 @@
                 <a href="/"><img src="../static/IMAGES/LOGO.png" class="img-fluid mainLogo" alt="logo" /></a>
             </div>
             <div class="col-sm-6 buttons">
-                <a href="auth/login"><button type="button" class="btn btn-primary button">Zaloguj</button></a>
-                <a href="auth/register"><button type="button" class="btn btn-primary button">Zarejestruj</button></a>
+                <a href="auth/login"><button type="button" class="btn btn-primary button login-btn">Zaloguj</button></a>
+                <a href="auth/register"><button type="button" class="btn btn-primary button login-btn">Zarejestruj</button></a>
             </div>
         </div>
-        <div class="col-sm-8 content">
-            <h1>
-                O serwisie
-            </h1>
-            <hr>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet ullamcorper dui. Curabitur dapibus, dolor non dapibus posuere, massa velit dictum purus, et molestie nibh ante luctus enim. Morbi sed mi et urna volutpat ornare quis quis eros. Ut
-                eget turpis imperdiet, iaculis erat eu, auctor ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam quis iaculis nulla. Sed feugiat, purus rutrum tincidunt bibendum, dui augue vestibulum
-                justo, at porttitor dolor libero in lectus.
-            </p>
-            <img src="../static/IMAGES/screen1.png" class="img-fluid screen" alt="app" />
-            <img src="../static/IMAGES/screen2.png" class="img-fluid screen" alt="app" />
-        </div>
+        {% block content %}
+
+        {% endblock %}
     </div>
     <footer>
         st00pki.

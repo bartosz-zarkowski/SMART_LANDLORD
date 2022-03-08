@@ -1,0 +1,123 @@
+{% extends 'home_layout.html' %} {% block content %}
+
+    <div class="container">
+        <div class="row g-3 mt-3">
+            <div class="col-md-6 col-xl-4 card sensor-card">
+                <div class="card-header">
+                    Czujnik Wody 1
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="water-sensor-1_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Maksymalne zużycie wody</p>
+                    </div>
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="water-sensor-1_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Symuluj wyciek wody</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 card sensor-card">
+                <div class="card-header">
+                    Czujnik Wody 2
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="water-sensor-2_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Maksymalne zużycie wody</p>
+                    </div>
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="water-sensor-2_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Symuluj wyciek wody</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 card sensor-card">
+                <div class="card-header">
+                    Czujnik Zużycia Energii 1
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="power-sensor-1_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Maksymalne zużycie energii</p>
+                    </div>
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="power-sensor-1_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Długotrwałe zużycie energii</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 card sensor-card">
+                <div class="card-header">
+                    Czujnik Zużycia Energii 2
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="power-sensor-2_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Maksymalne zużycie energii</p>
+                    </div>
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="power-sensor-2_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Długotrwałe zużycie energii</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 card sensor-card">
+                <div class="card-header">
+                    Czujnik Temperatury
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="temp-sensor_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Długotrwałe obniżenie temperatury</p>
+                    </div>
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="temp-sensor_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Symuluj wysoką temperaturę</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 card sensor-card">
+                <div class="card-header">
+                    Czujnik Ruchu
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="motion-sensor_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Symuluj wykrycie ruchu</p>
+                    </div>
+                    <div class="row mb-2 sensor-card-row">
+                        <a id="motion-sensor_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <p class="col-auto card-text sensor-card-text">Symuluj długotrwałą nieobecność</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const data = {username: 'example'};
+
+        fetch('https://example.com/profile', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
+
+{% endblock %}ł

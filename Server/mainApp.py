@@ -32,7 +32,7 @@ def getUserName():
 
 @bp.route("/")
 def index():
-    return render_template("home.html")
+    return render_template("app/home.html")
 
 
 @bp.route("/strona_glowna")
@@ -270,3 +270,10 @@ def create():
 
     return redirect(url_for("app.twoje_lokale"))
 
+
+@bp.route("/wirtualne_mieszkanie")
+def wirtualne_mieszkanie():
+    return render_template(
+        "app/wirtualne_mieszkanie.html",
+        title="Wirtualne mieszkanie"
+    )
