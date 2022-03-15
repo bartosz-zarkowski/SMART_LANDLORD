@@ -1,113 +1,106 @@
 {% extends 'base_layout.html' %} {% block content %}
 
-<p>
-    <h3>Aktualne</h3>
-    <hr class="alertHr">
-</p>
 <div class="accordion" id="accordionExample">
-
     <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="true" aria-controls="">
-                        <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - 1, 2 3
-                        <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert"></i>
-                    </button>
+        <h2 class="accordion-header expandable_card_header" id="heading-1">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+
+                <i class="fs-16 bi-droplet-fill card-title-icon accordion_title_icon"></i>
+                przekroczenie maksymalnego, jednokrotnego użycia wody
+                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
+            </button>
         </h2>
-        <div id="" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="" data-bs-parent="#accordionExample">
+        <div id="collapse-1" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-1}" data-bs-parent="#accordionExample">
             <div class="accordion-body expandable_card_body">
-                <div style="display: none">
-                    <div class="people-list-modal-background"></div>
-                    <div class="people-list-modal">
-                        <i class="people-list-modal-exit-icon bi-x"></i>
-                        <h4 class="people-list-modal-title">Lista najemców</h4>
-                        <hr class="people-list-modal-line">
-                        <div class="people-list-modal-body">
-                            <table class="table tenants-table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Imię</th>
-                                        <th scope="col">Nazwisko</th>
-                                        <th scope="col">Telefon</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
-                <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
-                <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
-                <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
-                <span class="kwota-najmu">1100</span>zł, termin płatności: <span class="termin-platnosci">1</span> dzień miesiąca.<br>
-                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b>3</b>
-                <i class="fs-16 bi bi-pencil-square card-title-icon editButton"></i>
+                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
+                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 01.03.2021 13:35</span><br>
+                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
             </div>
         </div>
     </div>
 </div>
 
-<p>
-    <h3 style=>Historia</h3>
-    <hr class="alertHr">
-</p>
-
 <div class="accordion" id="accordionExample">
-
     <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="true" aria-controls="">
-                        <i class="fs-16 bi-house-fill card-title-icon accordion_title_icon"></i> Mieszkanie - 1, 2 3
-                        <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert"></i>
-                    </button>
+        <h2 class="accordion-header expandable_card_header" id="heading-2">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
+
+                <i class="fs-16 bi-droplet-fill card-title-icon accordion_title_icon"></i>
+                Prawdopodobieństwo wycieku
+                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_green"></i>
+            </button>
         </h2>
-        <div id="" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="" data-bs-parent="#accordionExample">
+        <div id="collapse-2" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-1}" data-bs-parent="#accordionExample">
             <div class="accordion-body expandable_card_body">
-                <div style="display: none">
-                    <div class="people-list-modal-background"></div>
-                    <div class="people-list-modal">
-                        <i class="people-list-modal-exit-icon bi-x"></i>
-                        <h4 class="people-list-modal-title">Lista najemców</h4>
-                        <hr class="people-list-modal-line">
-                        <div class="people-list-modal-body">
-                            <table class="table tenants-table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Imię</th>
-                                        <th scope="col">Nazwisko</th>
-                                        <th scope="col">Telefon</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <i class="fs-16 bi-people-fill card-title-icon"></i> <span class="people-list">Lista najemców</span><br>
-                <i class="fs-16 bi-droplet-fill card-title-icon"></i> Okresowe zużycie wody: 63m<sup>3</sup><br>
-                <i class="fs-16 bi-plug-fill card-title-icon"></i> Okresowe zużycie prądu: 322 kWh<br>
-                <i class="fs-16 bi-cash-stack card-title-icon"></i> Kwota najmu:
-                <span class="kwota-najmu">1100</span>zł, termin płatności: <span class="termin-platnosci">1</span> dzień miesiąca.<br>
-                <i class="fs-16 bi bi-hash card-title-icon"></i> Kod lokalu: <b>3</b>
-                <i class="fs-16 bi bi-pencil-square card-title-icon editButton"></i>
+                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
+                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
+                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
             </div>
         </div>
     </div>
 </div>
 
-<!-- <script>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="heading-3">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
+
+                <i class="fs-16 bi-plug-fill card-title-icon accordion_title_icon"></i>
+                Przekroczenie maksymalnego, jednokrotnego użycia energii elktrycznej.
+                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
+            </button>
+        </h2>
+        <div id="collapse-3" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-3}" data-bs-parent="#accordionExample">
+            <div class="accordion-body expandable_card_body">
+                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
+                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
+                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="heading-4">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-4">
+
+                <i class="fs-16 bi-plug-fill card-title-icon accordion_title_icon"></i>
+                Długotrwałe zużycie energii elektrycznej
+                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
+            </button>
+        </h2>
+        <div id="collapse-4" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-4}" data-bs-parent="#accordionExample">
+            <div class="accordion-body expandable_card_body">
+                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
+                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
+                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item expandable_card">
+        <h2 class="accordion-header expandable_card_header" id="heading-5">
+            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-5" aria-expanded="true" aria-controls="collapse-5">
+
+                <i class="fs-16 bi-thermometer-snow card-title-icon accordion_title_icon"></i>
+                Długotrwałe obniżenie temperatury
+                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
+            </button>
+        </h2>
+        <div id="collapse-5" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-5}" data-bs-parent="#accordionExample">
+            <div class="accordion-body expandable_card_body">
+                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
+                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
+                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
     let expandable_cards = document.getElementsByClassName("expandable_card");
     for (let card of expandable_cards) {
         card.addEventListener("click", () => {
@@ -134,22 +127,6 @@
 
         });
     }
-
-    let peopleListElements = document.getElementsByClassName("people-list");
-    for (let peopleList of peopleListElements) {
-        peopleList.addEventListener("click", () => {
-            let currentLocal = peopleList.parentElement;
-            let peopleListModal = currentLocal.firstElementChild;
-            let exitIcon = peopleListModal.lastElementChild.firstElementChild;
-
-            peopleListModal.style.display = "block";
-
-            exitIcon.addEventListener("click", () => {
-                peopleListModal.style.display = "none";
-            });
-
-        });
-    }
-</script> -->
+</script>
 
 {% endblock %}

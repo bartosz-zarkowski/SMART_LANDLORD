@@ -68,10 +68,8 @@
                                         <td>
                                             <p style="margin: 0">
                                                 {% if sensor[4]==0 %}
-                                                    <i class="sensor_alert alert_red">offline</i>
-                                                {% else %}
-                                                    <i class="sensor_alert alert_green">online</i>
-                                                {% endif %}
+                                                <i class="sensor_alert alert_red">offline</i> {% else %}
+                                                <i class="sensor_alert alert_green">online</i> {% endif %}
                                             </p>
                                         </td>
                                     </tr>
@@ -170,7 +168,7 @@
                 let oldKwota = kwotaNajmu.innerHTML;
                 let oldTermin = terminPlatnosci.innerHTML;
 
-                kwotaNajmu.innerHTML =      `<input class='kwota_input' value='${oldKwota}' size='4'/>`;
+                kwotaNajmu.innerHTML = `<input class='kwota_input' value='${oldKwota}' size='4'/>`;
                 terminPlatnosci.innerHTML = `<input class='termin_input' value='${oldTermin}' size='2'/>`;
 
                 editButton.classList.remove("bi-pencil-square");
@@ -189,17 +187,21 @@
                 editButton.classList.remove("edit-mode");
                 editButton.classList.add("bi-pencil-square");
 
-                kwotaNajmu.innerHTML =      kwotaValue;
+                kwotaNajmu.innerHTML = kwotaValue;
                 terminPlatnosci.innerHTML = terminValue;
 
 
                 fetch('/update_local', {
-                  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                  },
-                  method: 'PATCH',
-                  body: JSON.stringify( { local_code: localCode, kwota_najmu: kwotaValue, termin_platnosci: terminValue} )
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'PATCH',
+                    body: JSON.stringify({
+                        local_code: localCode,
+                        kwota_najmu: kwotaValue,
+                        termin_platnosci: terminValue
+                    })
                 });
 
 
