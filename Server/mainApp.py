@@ -85,7 +85,7 @@ def strona_glowna():
 def powiadomienia():
     name, initials = getUserName()
     return render_template(
-        "app/strona_glowna.html",
+        "app/powiadomienia.html",
         userInfo=getUserRole(),
         name=name,
         initials=initials,

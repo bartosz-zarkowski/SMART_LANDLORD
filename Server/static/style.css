@@ -397,7 +397,6 @@ hr {
     color: #df0000;
 }
 
-
 .expandable_card_collapse {
     background-color: #E5E5E5;
     /*padding: 15px 20px 20px;*/
@@ -419,11 +418,13 @@ hr {
 
 /* MODALS */
 
-.people-list, .sensors-list {
+.people-list,
+.sensors-list {
     cursor: pointer;
 }
 
-.people-list:hover, .sensors-list:hover {
+.people-list:hover,
+.sensors-list:hover {
     font-weight: bold;
 }
 
@@ -486,9 +487,20 @@ hr {
     }
 }
 
+
 /* ----------------- */
 
 .editButton {
+    display: flex;
+    padding-bottom: 15px;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+.submitButton {
     display: flex;
     padding-bottom: 15px;
     justify-content: flex-end;
