@@ -5,6 +5,7 @@ from flask import request
 from flask import flash
 from flask import redirect
 from flask import url_for
+import socket
 
 from db import get_db
 from auth import login_required
@@ -271,8 +272,15 @@ def create():
     return redirect(url_for("app.twoje_lokale"))
 
 
-@bp.route("/wirtualne_mieszkanie")
+@bp.route("/wirtualne_mieszkanie", methods=("GET", "POST"))
 def wirtualne_mieszkanie():
+    if request.method == "POST":
+        print(request.data)
+        sock = socket.socket()
+        port = 3389
+        adress = "35.224.18.129"
+        sock.connect((adress, port))
+        sock.send(request.data)
     return render_template(
         "app/wirtualne_mieszkanie.html",
         title="Wirtualne mieszkanie"

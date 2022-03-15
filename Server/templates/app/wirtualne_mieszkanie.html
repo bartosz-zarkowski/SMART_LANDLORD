@@ -8,11 +8,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2 sensor-card-row">
-                        <a id="water-sensor-1_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-1-1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Maksymalne zużycie wody</p>
                     </div>
                     <div class="row mb-2 sensor-card-row">
-                        <a id="water-sensor-1_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-1-2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Symuluj wyciek wody</p>
                     </div>
 
@@ -24,11 +24,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2 sensor-card-row">
-                        <a id="water-sensor-2_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-2-1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Maksymalne zużycie wody</p>
                     </div>
                     <div class="row mb-2 sensor-card-row">
-                        <a id="water-sensor-2_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-2-2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Symuluj wyciek wody</p>
                     </div>
 
@@ -40,11 +40,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2 sensor-card-row">
-                        <a id="power-sensor-1_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-3-3" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Maksymalne zużycie energii</p>
                     </div>
                     <div class="row mb-2 sensor-card-row">
-                        <a id="power-sensor-1_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-3-4" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Długotrwałe zużycie energii</p>
                     </div>
 
@@ -56,11 +56,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2 sensor-card-row">
-                        <a id="power-sensor-2_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-4-3" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Maksymalne zużycie energii</p>
                     </div>
                     <div class="row mb-2 sensor-card-row">
-                        <a id="power-sensor-2_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-4-4" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Długotrwałe zużycie energii</p>
                     </div>
 
@@ -72,11 +72,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2 sensor-card-row">
-                        <a id="temp-sensor_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-5-5" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Długotrwałe obniżenie temperatury</p>
                     </div>
                     <div class="row mb-2 sensor-card-row">
-                        <a id="temp-sensor_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-5-6" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Symuluj wysoką temperaturę</p>
                     </div>
 
@@ -88,12 +88,8 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2 sensor-card-row">
-                        <a id="motion-sensor_1" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
+                        <a id="sensor-6-7" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
                         <p class="col-auto card-text sensor-card-text">Symuluj wykrycie ruchu</p>
-                    </div>
-                    <div class="row mb-2 sensor-card-row">
-                        <a id="motion-sensor_2" class="col-auto ms-2 btn btn-primary sensor-btn">Go</a>
-                        <p class="col-auto card-text sensor-card-text">Symuluj długotrwałą nieobecność</p>
                     </div>
 
                 </div>
@@ -102,22 +98,66 @@
     </div>
 
     <script type="text/javascript">
-        const data = {username: 'example'};
+        let sensor_btns = document.getElementsByClassName("sensor-btn");
 
-        fetch('https://example.com/profile', {
-            method: 'POST', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        for (let sensor_btn of sensor_btns) {
+            sensor_btn.addEventListener("click", () => {
+                let id =            sensor_btn.id.slice(7, 8);
+                let error_type =    sensor_btn.id.slice(9);
+                console.log(sensor_btn.id);
+                console.log("id -> ", id);
+                console.log("error_type -> ", error_type);
+                send(id, error_type);
             });
+        }
+
+        function send(id, error_type) {
+            {#const data = {username: 'example'};#}
+            {#
+            Error Type:
+            - water-sensor-1_1 -> 1
+            - water-sensor-1_2 -> 2
+
+             #}
+            const data = {
+                "ID": id,
+                "OwnerID": "1",
+                {#"SensorName": str(self.SensorName),#}
+                {#"LocationLatitude": str(self.LocationLatitude),#}
+                {#"LocationLongitude": str(self.LocationLongitude),#}
+                {#"LocationCity": str(self.LocationCity),#}
+                {#"kWh": str(self.kWh),#}
+                {#"kWhActuall": str(self.kWhActuall),#}
+                {#"kwhFlow": str(self.kwhFlow),#}
+                {#"time": str(self.time),#}
+                {#"checkTime": str(self.checkTime),#}
+                {#"checkValue": str(self.checkValue),#}
+                {#"timecounter": str(self.timecounter),#}
+                "errorType": error_type
+            }
+
+            console.log(JSON.stringify(data));
+
+            {# b'{"ID": "1", "OwnerID": "1", "errorType": "1"}' #}
+
+            fetch('/wirtualne_mieszkanie', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+
+
+        }
+
     </script>
 
 {% endblock %}ł
