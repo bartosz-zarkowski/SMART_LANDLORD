@@ -1,104 +1,40 @@
 {% extends 'base_layout.html' %} {% block content %}
 
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="heading-1">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-
-                <i class="fs-16 bi-droplet-fill card-title-icon accordion_title_icon"></i>
-                przekroczenie maksymalnego, jednokrotnego użycia wody
-                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
-            </button>
-        </h2>
-        <div id="collapse-1" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-1}" data-bs-parent="#accordionExample">
-            <div class="accordion-body expandable_card_body">
-                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
-                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 01.03.2021 13:35</span><br>
-                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
+    <div class="accordion" id="accordionExample">
+    {% for event in events %}
+        <div class="accordion-item expandable_card">
+            <h2 class="accordion-header expandable_card_header" id="heading{{ loop.index }}">
+                <button class="accordion-button expandable_card_button collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true"
+                        aria-controls="collapse{{ loop.index }}">
+                    <i class="fs-16
+                    {% if event[1] == 1 or event[1] == 2 %} bi-droplet-fill
+                    {% elif event[1] == 3 or event[1] == 4 %} bi-plug-fill
+                    {% elif event[1] == 5 %} bi-thermometer-snow
+                    {% elif event[1] == 6 %} bi-thermometer-sun
+                    {% elif event[1] == 7 %} bi-person-bounding-box
+                    {% else %} bi-bug-fill {% endif %}
+                    card-title-icon accordion_title_icon"></i>
+                    {{ event[2] }}
+                    {% if event[5] == 0 %}
+                    <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red event-{{ event[0] }}"></i>
+                    {% endif %}
+                </button>
+            </h2>
+            <div id="collapse{{ loop.index }}" class="accordion-collapse collapse expandable_card_collapse"
+                 aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
+                <div class="accordion-body expandable_card_body">
+                    <i class="fs-16 bi-house-fill card-title-icon"></i>
+                    <span>Lokalizacja: {{ event[3] }}</span><br>
+                    <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: {{ event[4] }}</span><br>
+                    {% if event[5] == 0 %}
+                    <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton event-{{ event[0] }}" onClick="checkEvent({{ event[0] }}, {{ event[6] }})"></i>
+                    {% endif %}
+                </div>
             </div>
         </div>
+    {% endfor %}
     </div>
-</div>
-
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="heading-2">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
-
-                <i class="fs-16 bi-droplet-fill card-title-icon accordion_title_icon"></i>
-                Prawdopodobieństwo wycieku
-                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_green"></i>
-            </button>
-        </h2>
-        <div id="collapse-2" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-1}" data-bs-parent="#accordionExample">
-            <div class="accordion-body expandable_card_body">
-                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
-                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
-                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="heading-3">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
-
-                <i class="fs-16 bi-plug-fill card-title-icon accordion_title_icon"></i>
-                Przekroczenie maksymalnego, jednokrotnego użycia energii elktrycznej.
-                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
-            </button>
-        </h2>
-        <div id="collapse-3" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-3}" data-bs-parent="#accordionExample">
-            <div class="accordion-body expandable_card_body">
-                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
-                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
-                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="heading-4">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-4">
-
-                <i class="fs-16 bi-plug-fill card-title-icon accordion_title_icon"></i>
-                Długotrwałe zużycie energii elektrycznej
-                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
-            </button>
-        </h2>
-        <div id="collapse-4" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-4}" data-bs-parent="#accordionExample">
-            <div class="accordion-body expandable_card_body">
-                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
-                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
-                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item expandable_card">
-        <h2 class="accordion-header expandable_card_header" id="heading-5">
-            <button class="accordion-button expandable_card_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-5" aria-expanded="true" aria-controls="collapse-5">
-
-                <i class="fs-16 bi-thermometer-snow card-title-icon accordion_title_icon"></i>
-                Długotrwałe obniżenie temperatury
-                <i class="fs-24 bi bi-dot card-title-icon accordion_title_alert alert_red"></i>
-            </button>
-        </h2>
-        <div id="collapse-5" class="accordion-collapse collapse expandable_card_collapse" aria-labelledby="heading-5}" data-bs-parent="#accordionExample">
-            <div class="accordion-body expandable_card_body">
-                <i class="fs-16 bi-house-fill card-title-icon"></i> <span>Lokalizacja: Szczecin, Randomowa 23</span><br>
-                <i class="fs-16 bi-clock-fill card-title-icon"></i> <span>Data wystąpienia problemu: 07.03.2021 15:45</span><br>
-                <i class="fs-16 bi bi-check-square-fill card-title-icon submitButton"></i>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     let expandable_cards = document.getElementsByClassName("expandable_card");
@@ -127,6 +63,33 @@
 
         });
     }
+
+    function checkEvent(eventId, sensorId) {
+        let data = {
+            eventId: eventId,
+            sensorId: sensorId,
+            seen: 1
+        }
+
+        let elementsToHideClassName = "event-" + eventId;
+        let elementsToHide = document.getElementsByClassName(elementsToHideClassName);
+        for (let element of elementsToHide) {
+            element.style.display = "none";
+        }
+
+        fetch('/update_event', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'PATCH',
+            body: JSON.stringify(data)
+        });
+
+    }
+
+    {#let checkEvent = document.getElementById("check-event");#}
+
 </script>
 
 {% endblock %}

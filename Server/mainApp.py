@@ -6,6 +6,7 @@ from flask import flash
 from flask import redirect
 from flask import url_for
 import socket
+from datetime import datetime
 
 from db import get_db
 from auth import login_required
@@ -85,12 +86,36 @@ def strona_glowna():
 @login_required
 def powiadomienia():
     name, initials = getUserName()
+    userPermission = getUserRole()
+    cursor, db = get_db()
+
+    if userPermission != "właściciel":
+        cursor.execute("SELECT ev.eventId, ev.eventType, et.eventTitle, "
+                       "CONCAT(l.city, ', ', l.street, ' ', l.localNumber) AS 'location', "
+                       "ev.datetime, ev.`seenTenant` AS 'seen', ev.sensorId "
+                       "FROM events AS `ev` "
+                       "JOIN event_types AS `et` ON ev.eventType = et.id "
+                       "JOIN sensors AS `s` ON ev.sensorId = s.sensorId "
+                       "JOIN locals AS `l` ON s.localId = l.localId "
+                       "WHERE l.localCode = %s ORDER BY ev.datetime DESC", (g.user[7],))
+        events = cursor.fetchall()
+
+    else:
+        cursor.execute("SELECT ev.eventId, ev.eventType, et.eventTitle, "
+                       "CONCAT(l.city, ', ', l.street, ' ', l.localNumber) AS 'location', "
+                       "ev.datetime, ev.`seenLandlord` AS 'seen', ev.sensorId "
+                       "FROM events AS `ev` "
+                       "JOIN event_types AS `et` ON ev.eventType = et.id "
+                       "JOIN sensors AS `s` ON ev.sensorId = s.sensorId "
+                       "JOIN locals AS `l` ON s.localId = l.localId ORDER BY ev.datetime DESC")
+        events = cursor.fetchall()
     return render_template(
         "app/powiadomienia.html",
         userInfo=getUserRole(),
         name=name,
         initials=initials,
-        title="Powiadomienia"
+        title="Powiadomienia",
+        events=events
     )
 
 
@@ -255,7 +280,7 @@ def ustawienia():
 
 @bp.route('/update_local', methods=("PATCH",))
 @login_required
-def create():
+def update_local():
     json = request.json
 
     local_code = json['local_code']
@@ -272,15 +297,68 @@ def create():
     return redirect(url_for("app.twoje_lokale"))
 
 
+@bp.route('/update_event', methods=("PATCH",))
+@login_required
+def update_event():
+    cursor, db = get_db()
+    userPermission = getUserRole()
+    json = request.json
+
+    seen = json['seen']
+    eventId = json['eventId']
+
+    if userPermission == "właściciel":
+        cursor.execute(
+            "UPDATE events SET seenLandlord=%s WHERE eventId=%s",
+            (seen, eventId),
+        )
+        db.commit()
+    else:
+        cursor.execute(
+            "UPDATE events SET seenTenant=%s WHERE eventId=%s",
+            (seen, eventId),
+        )
+        db.commit()
+
+    # aktualizuję status czujnika w bazie
+    cursor.execute(
+        "UPDATE sensors SET status=1 WHERE sensorId=%s",
+        (json["sensorId"],),
+    )
+    db.commit()
+
+    return "ok"
+
+
 @bp.route("/wirtualne_mieszkanie", methods=("GET", "POST"))
 def wirtualne_mieszkanie():
+    cursor, db = get_db()
     if request.method == "POST":
-        print(request.data)
-        sock = socket.socket()
-        port = 3389
-        adress = "35.224.18.129"
-        sock.connect((adress, port))
-        sock.send(request.data)
+        # wyślij dane na serwer mailowy
+        try:
+            # print(request.data)
+            sock = socket.socket()
+            port = 3389
+            adress = "35.224.18.129"
+            sock.connect((adress, port))
+            sock.send(request.data)
+        except ConnectionRefusedError:
+            print("Serwer wyłączony, nie można wysłać danych poprzez email!")
+
+        # wyślij dane do bazy danych
+        json = request.json
+        cursor.execute("INSERT INTO events (sensorId, eventType, datetime, seenTenant, seenLandlord) "
+                       "VALUES (%s, %s, %s, 0, 0)",
+                       (json["ID"], json["errorType"], datetime.now()))
+        db.commit()
+
+        # aktualizuję status czujnika w bazie
+        cursor.execute(
+            "UPDATE sensors SET status=0 WHERE sensorId=%s",
+            (json["ID"],),
+        )
+        db.commit()
+
     return render_template(
         "app/wirtualne_mieszkanie.html",
         title="Wirtualne mieszkanie"
