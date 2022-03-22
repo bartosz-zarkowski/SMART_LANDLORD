@@ -1,10 +1,8 @@
-import mariadb
+# import mariadb
+import pymysql
 import sys
 from flask import g
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 def get_db():
@@ -15,14 +13,14 @@ def get_db():
     if "db" not in g:
         # Connect to MariaDB Platform
         try:
-            conn = mariadb.connect(
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASS'),
-                host=os.getenv('DB_HOST'),
+            conn = pymysql.connect(
+                user=os.environ['DB_USER'],
+                password=os.environ['DB_PASS'],
+                host=os.environ['DB_HOST'],
                 port=3306,
-                database=os.getenv('DB_DB')
+                database=os.environ['DB_DB']
             )
-        except mariadb.Error as e:
+        except pymysql.Error as e:
             print(f"Error connecting to MariaDB Platform: {e}")
             sys.exit(1)
 

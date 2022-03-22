@@ -1,6 +1,6 @@
 import functools
 
-import mariadb
+import pymysql
 from flask import Blueprint
 from flask import flash
 from flask import g
@@ -89,7 +89,7 @@ def register():
                         (name, fullName, email, generate_password_hash(password), localCode[0], phoneNumber),
                     )
                     db.commit()
-                except mariadb.IntegrityError:
+                except pymysql.IntegrityError:
                     # The username was already taken, which caused the
                     # commit to fail. Show a validation error.
                     error = f"Użytkownik z mailem {email} jest już zarejestrowany."

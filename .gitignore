@@ -9,3 +9,4 @@ __pycache__/
 *.pyc
 
 .env
+Server/env_vars.yaml
